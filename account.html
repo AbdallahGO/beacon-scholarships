@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your account — Beacon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index.css">
+<script src="theme.js"></script>
+</head>
+<body>
+
+<nav>
+  <div class="brand">
+    <span class="mark">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 6.6L21 9.3l-5 4.4L17.6 21 12 17.3 6.4 21 8 13.7l-5-4.4 6.6-.7z" fill="currentColor"/></svg>
+    </span>
+    Beacon
+  </div>
+  <div class="nav-links">
+    <a href="index.html#browse">Browse</a>
+    <a href="index.html#browse">Fully funded</a>
+    <a href="index.html#browse">By country</a>
+    <a href="index.html#how">How it works</a>
+  </div>
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="tt-icon"></span></button>
+    <a href="index.html#browse" class="nav-cta">Find a scholarship</a>
+    <span id="navAccount"></span>
+  </div>
+</nav>
+
+<main class="account-wrap">
+  <a class="back-link" href="index.html#browse">← All scholarships</a>
+
+  <!-- shown to anonymous visitors (FR-011) -->
+  <div class="acct-gate" id="acctGate" hidden>
+    <div class="big">🔑</div>
+    <h3>Sign in to see your account</h3>
+    <p>Your saved scholarships, history and profile live here once you're signed in.</p>
+    <button class="apply-btn" id="gateSignIn" type="button">Sign in or create account</button>
+  </div>
+
+  <!-- password recovery (reached from the reset-link email) -->
+  <div class="acct-reset" id="acctReset" hidden>
+    <h2>Choose a new password</h2>
+    <form id="resetForm" class="acct-form" novalidate>
+      <label>New password
+        <input type="password" name="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters" />
+      </label>
+      <button class="apply-btn" type="submit">Save new password</button>
+    </form>
+  </div>
+
+  <div class="acct" id="acct" hidden>
+    <h1 class="acct-title">Your account</h1>
+    <div class="acct-tabs" id="acctTabs">
+      <a href="#profile" data-tab="profile">Profile</a>
+      <a href="#saved" data-tab="saved">Saved</a>
+      <a href="#history" data-tab="history">History</a>
+      <a href="#settings" data-tab="settings">Settings</a>
+    </div>
+
+    <section class="acct-pane" id="pane-profile" hidden></section>
+    <section class="acct-pane" id="pane-saved" hidden></section>
+    <section class="acct-pane" id="pane-history" hidden></section>
+    <section class="acct-pane" id="pane-settings" hidden></section>
+  </div>
+</main>
+
+<footer>
+  <div class="foot-glow"></div>
+  <div class="foot-inner">
+    <div class="foot-bar">
+      <span>© 2026 Beacon — a friendly scholarship finder.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="scholarships.js"></script>
+<!-- accounts: pinned supabase-js + project config + shared auth module -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.1/dist/umd/supabase.min.js"></script>
+<script src="supabase-config.js"></script>
+<script src="auth.js"></script>
+<script src="account.js"></script>
+</body>
+</html>

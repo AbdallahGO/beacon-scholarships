@@ -1,0 +1,43 @@
+{
+    "id":  "30278",
+    "status":  "ok",
+    "fetched_at":  "2026-06-10T23:25:04Z",
+    "official_link":  null,
+    "org_about":  null,
+    "en":  {
+               "lang":  "en",
+               "title":  "Fully Funded Scholarship in Canada 2026 for Global Development",
+               "sections":  [
+                                {
+                                    "header":  "Opportunity description",
+                                    "body":  "\u003cdiv\u003e\u003cdiv class=\"description\"\u003e\u003cp\u003eThe BCDI 2030 initiative, funded by Global Affairs Canada, aims to empower students from 26 developing countries by providing opportunities for higher education in Canada, targeting social and economic development in their home nations.\u003c/p\u003e\u003ch2\u003eFinancial Benefits and Coverage\u003c/h2\u003e\u003cp\u003eAwardees receive tuition coverage, access to quality training, and opportunities for professional skill development. Approximately 7,000 scholarships will be offered, with women expected to comprise at least 51% of recipients.\u003c/p\u003e\u003ch2\u003eEligibility Requirements\u003c/h2\u003e\u003cp\u003eCandidates must be from one of the 26 partner countries, apply through established partnerships, and meet academic standards of both local and Canadian institutions.\u003c/p\u003e\u003ch2\u003eAvailable Fields of Study\u003c/h2\u003e\u003cp\u003eScholarships are available in priority areas such as AI, climate action, health sciences, and governance.\u003c/p\u003e\u003ch2\u003eHow to Apply Step by Step\u003c/h2\u003e\u003col\u003e\u003cli\u003eContact your local higher education institution for partnership opportunities.\u003c/li\u003e\u003cli\u003eEnsure you meet both local and Canadian institutions\u0026#39; academic requirements.\u003c/li\u003e\u003cli\u003eSubmit applications through collaborative programs as guided by your local institution.\u003c/li\u003e\u003c/ol\u003e\u003c/div\u003e\u003c/div\u003e"
+                                },
+                                {
+                                    "header":  "Benefits",
+                                    "body":  "\u003cdiv\u003e\u003cdiv class=\"benefits\"\u003e\u003cul\u003e\u003cli\u003eTuition and educational fees coverage\u003c/li\u003e\u003cli\u003eAccess to professional skill development and mentorship\u003c/li\u003e\u003cli\u003eSupport for research and internships\u003c/li\u003e\u003c/ul\u003e\u003c/div\u003e\u003c/div\u003e"
+                                },
+                                {
+                                    "header":  "Eligibility criteria",
+                                    "body":  "\u003cdiv\u003e\u003cdiv class=\"qualifications\"\u003e\u003cul\u003e\u003cli\u003eApplicants must be from one of the 26 partner countries\u003c/li\u003e\u003cli\u003eApplications must be submitted through approved partnerships\u003c/li\u003e\u003c/ul\u003e\u003c/div\u003e\u003c/div\u003e"
+                                }
+                            ]
+           },
+    "ar":  {
+               "lang":  "ar",
+               "title":  "منحة ممولة بالكامل للدراسة في كندا 2026",
+               "sections":  [
+                                {
+                                    "header":  "وصف الفرصة",
+                                    "body":  "\u003cdiv\u003e\u003cdiv class=\"description_ar\"\u003e\u003cp\u003eتُعد منحة BCDI 2030 مبادرة كبرى بتمويل من الشؤون العالمية الكندية، تستهدف تعزيز التنمية الاجتماعية والاقتصادية من خلال تمكين الطلاب من 26 دولة شريكة من الدراسة في كندا واكتساب المهارات والمعرفة.\u003c/p\u003e\u003ch2\u003eالتمويل والمزايا المالية\u003c/h2\u003e\u003cp\u003eتغطي المنحة الرسوم الدراسية والتدريب المهني، وتوفر فرصة للتطوير المهني والتوجيه. تشمل المنحة 7000 فرصة دراسية.\u003c/p\u003e\u003ch2\u003eشروط القبول والأهلية\u003c/h2\u003e\u003cp\u003eيجب أن يكون المتقدم مواطناً لأحد البلدان الـ26 الشريكة، ويقدم من خلال شراكات محددة بين المؤسسات الكندية والمحلية، ويحقق المتطلبات الأكاديمية المطلوبة.\u003c/p\u003e\u003ch2\u003eالتخصصات المتاحة\u003c/h2\u003e\u003cp\u003eتشمل المجالات ذات الأولوية: الذكاء الاصطناعي، العمل المناخي، العلوم الصحية، الحوكمة، و التنمية الاقتصادية الخضراء.\u003c/p\u003e\u003c/div\u003e\u003c/div\u003e"
+                                },
+                                {
+                                    "header":  "المنافع والفوائد",
+                                    "body":  "\u003cdiv\u003e\u003cdiv class=\"benefits_ar\"\u003e\u003cul\u003e\u003cli\u003eتغطية الرسوم الدراسية\u003c/li\u003e\u003cli\u003eتطوير مهارات مهنية\u003c/li\u003e\u003cli\u003eتوفير فرص بحث وتدريب مهني\u003c/li\u003e\u003c/ul\u003e\u003c/div\u003e\u003c/div\u003e"
+                                },
+                                {
+                                    "header":  "معايير التقديم",
+                                    "body":  "\u003cdiv\u003e\u003cdiv class=\"qualifications_ar\"\u003e\u003cul\u003e\u003cli\u003eيجب أن تكون مواطناً لأحد البلدان الشريكة الـ26\u003c/li\u003e\u003cli\u003eتقديم الطلبات من خلال شراكات محددة\u003c/li\u003e\u003c/ul\u003e\u003c/div\u003e\u003c/div\u003e"
+                                }
+                            ]
+           }
+}

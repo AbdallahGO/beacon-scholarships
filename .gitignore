@@ -1,0 +1,26 @@
+# Python (data generator: ScholarShips_Data/build_catalogue.py)
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+
+# Logs / env
+*.log
+.env
+.env.*
+
+# Local credentials (never commit)
+supabase_pass.text
+Strip-sandbox.text
+
+# Temporary validation tooling (Playwright e2e checks) — not a runtime dependency
+node_modules/
+package.json
+package-lock.json

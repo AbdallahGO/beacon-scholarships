@@ -1,0 +1,1540 @@
+{
+    "generated_at":  "2026-06-10T23:56:05Z",
+    "totals":  {
+                   "ok":  168,
+                   "partial":  0,
+                   "failed":  2
+               },
+    "entries":  [
+                    {
+                        "id":  "6049",
+                        "title":  "Scholarship for Palestinian Bachelor Students from Ahdaf",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/Scholarship-for-Palestinian-Bachelor-Students-from-Ahdaf-2019",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-بكالوريوس-للطلاب-الفلسطينيين-من-جمعية-أهداف-للدراسة-في-فلسطين-2019",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:26:12Z"
+                    },
+                    {
+                        "id":  "6400",
+                        "title":  "Partially Funded Undergraduate Scolarship at Bocconi University in Italy 2026-2027",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partially-funded-undergraduate-scolarship-at-bocconi-university-in-italy-2026-2027",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-دراسية-للبكالوريوس-ممولة-جزئيا-في-ايطاليا-من-جامعة-bocconi-لعام-2026-2027",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:26:17Z"
+                    },
+                    {
+                        "id":  "7761",
+                        "title":  "Bachelor Scholarship in Electrical Engineering from Dubai Electricity and Water Authority",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/Bachelor-Scholarship-in-Electrical-Engineering-from-Dubai-Electricity-and-Water-Authority",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-بكالوريوس-ممولة-بالكامل-للإماراتيين-في-هندسة-الكهرباء-من-هيئة-كهرباء-ومياه-دبي",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:26:19Z"
+                    },
+                    {
+                        "id":  "8681",
+                        "title":  "Government of Turkey Research Scholarships in Different Fields in PhD in Turkey",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/Government-of-Turkey-Research-Scholarships-in-Different-Fields-in-PhD-in-Turkey-2020",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-الحكومة-التركية-لطلاب-الدكتوراه-في-مختلف-مجالات-الأبحاث-في-تركيا-2023",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:27:13Z"
+                    },
+                    {
+                        "id":  "14759",
+                        "title":  "H.H. Sheikh Hamdan Bin Zayed Scholarship for Emirati high schools Students",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/hh-sheikh-hamdan-bin-zayed-scholarship",
+                        "ar_url":  "https://www.for9a.com/opportunity/hh-sheikh-hamdan-bin-zayed-scholarship",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:27:15Z"
+                    },
+                    {
+                        "id":  "15192",
+                        "title":  "Free International Scholarship to Learn English from Resal Organisation",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/منحة-دولية-للتعليمenglish-language-diploma",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-دولية-للتعليمenglish-language-diploma",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:27:21Z"
+                    },
+                    {
+                        "id":  "16580",
+                        "title":  "Fully Funded Bachelor Scholarships in the UAE at Alqasimia University",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-bachelor-scholarships-in-the-uae-at-alqasimia-university",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-الجامعة-القاسمية-ممولة-بالكامل-في-الإمارات-تقدم-الآن",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:27:23Z"
+                    },
+                    {
+                        "id":  "16963",
+                        "title":  "Nanyang Technological University Undergraduate Scholarship  in Singapore 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/nanyang-technological-university-undergraduate-scholarship-in-singapore-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-بكالوريوس-ممولة-من-جامعة-nanyang-للتكنولوجيا-في-سنغافورة-لعام-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:31:49Z"
+                    },
+                    {
+                        "id":  "16981",
+                        "title":  "Partially Funded Scholarship for Undergraduates in Nanyang Technological University in Singapore",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partially-funded-scholarship-for-undergraduates-in-nanyang-technological-university-in-singapore",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-دراسية-ممولة-جزئيا-للطلاب-الجامعيين-في-جامعة-نانيانغ-التكنولوجية-في-سنغافورة",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:31:51Z"
+                    },
+                    {
+                        "id":  "17017",
+                        "title":  "Funded Bachelor\u0027s Scholarships in Various Disciplines from Nanyang Technological University in Singapore",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/funded-bachelors-scholarships-in-various-disciplines-from-nanyang-technological-university-in-singapore",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-بكالوريوس-ممولة-في-مختلف-التخصصات-من-جامعة-nanyang-technological-في-سنغافورة",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:31:57Z"
+                    },
+                    {
+                        "id":  "17018",
+                        "title":  "Funded Bachelor\u0027s Scholarships in Science and Engineering from Nanyang Technological University in Singapore",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/funded-bachelors-scholarships-in-science-and-engineering-from-nanyang-technological-university-in-singapore",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-بكالوريوس-ممولة-في-العلوم-والهندسة-من-جامعة-nanyang-technological-في-سنغافورة",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:31:59Z"
+                    },
+                    {
+                        "id":  "17030",
+                        "title":  "Fully-funded Bachelor\u0027s Scholarships in Various Disciplines from Nanyang Technological University in Singapore",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-bachelors-scholarships-in-various-disciplines-from-nanyang-technological-university-in-singapore",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-بكالوريوس-ممولة-بالكامل-في-مختلف-التخصصات-من-جامعة-nanyang-technological-في-سنغافورة",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:32:02Z"
+                    },
+                    {
+                        "id":  "17055",
+                        "title":  "Humanities and Social Sciences Undergraduate Scholarship from Nanyang Technological University 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/humanities-and-social-sciences-undergraduate-scholarship-from-nanyang-technological-university-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/humanities-arts-and-social-sciences-scholarship",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:32:05Z"
+                    },
+                    {
+                        "id":  "18530",
+                        "title":  "Partially Funded Undergraduate Scholarships for Emarati and GCC Students at Abu Dhabi University",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partially-funded-undergraduate-scholarships-for-emarati-and-gcc-students-at-abu-dhabi-university",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-بكالوريوس-ممولة-جزئيا-لطلاب-الإمارات-ومجلس-التعاون-الخليجي-بجامعة-أبوظبي",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:32:07Z"
+                    },
+                    {
+                        "id":  "18551",
+                        "title":  "Postgraduate Scholarships at Abu Dhabi University 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/postgraduate-scholarships-at-abu-dhabi-university-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-دراسات-عليا-في-الامارات-ممولة-من-جامعة-أبو-ظبي-لعام-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:32:09Z"
+                    },
+                    {
+                        "id":  "18573",
+                        "title":  "Fully Funded Scholarships for Undergraduates Students at Abu Dhabi University",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/chairman-scholarship-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-chairman-scholarship",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:32:19Z"
+                    },
+                    {
+                        "id":  "18608",
+                        "title":  "Merit Based Graduate Scholarship for UAE graduate Students by Abu Dhabi University",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/merit-based-graduate-scholarship-for-uae-graduate-students-by-abu-dhabi-university",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-الجدارة-للدراسات-العليا-من-جامعة-أبو-ظبي-للطلاب-الإماراتيين",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:32:22Z"
+                    },
+                    {
+                        "id":  "19293",
+                        "title":  "International Scholarship for Students Entering their First University Year from University of Calgary in Canada",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/international-entrance-scholarship-from-university-of-calgary-in-canada",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-دخول-دولية-من-جامعة-كالجاري-في-كندا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:32:25Z"
+                    },
+                    {
+                        "id":  "19352",
+                        "title":  "Federation University Australia Global Excellence Scholarship for Undergraduate and Postgraduate Students",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/federation-university-australia-global-excellence-scholarship-for-undergraduate-and-postgraduate-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-الاتحاد-الأسترالية-للتميز-العالمي-للطلاب-الجامعيين-وطلاب-الدراسات-العليا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:32:27Z"
+                    },
+                    {
+                        "id":  "19355",
+                        "title":  "Funded Scholarship for International Students at Federation University in Australia",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/federation-university-australia-global-pathways-scholarship",
+                        "ar_url":  "https://www.for9a.com/opportunity/federation-university-australia-global-pathways-scholarship",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:32:29Z"
+                    },
+                    {
+                        "id":  "19356",
+                        "title":  "Partially Funded Scholarships for International Students at Curtin University in Australia",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/destination-australia-scholarship-international-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/destination-australia-scholarship-international-students",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:32:31Z"
+                    },
+                    {
+                        "id":  "20223",
+                        "title":  "Earmarked PhD Scholarships for Researchers Covering Tuition Fees and Stipend at University of Queensland in Australia",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/earmarked-phd-scholarships-for-researchers-covering-tuition-fees-and-stipend-at-university-of-queensland-in-australia",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-دكتوراه-للباحثين-تغطي-الرسوم-الدراسية-وتكاليف-المعيشة-في-جامعة-queensland-في-أستراليا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:32:33Z"
+                    },
+                    {
+                        "id":  "20286",
+                        "title":  "Partially Funded Scholarship for a PhD in Australia at Curtin University",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partially-funded-phd-scholarship-at-curtin-university-in-australia",
+                        "ar_url":  "https://www.for9a.com/opportunity/دكتوراه-ممولة-جزئيا-منحة-دراسية-في-جامعة-كيرتن-بأستراليا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:55:39Z"
+                    },
+                    {
+                        "id":  "20840",
+                        "title":  "Diploma in Aeronautical Engineering from Emirates Aviation University in the UAE",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/diploma-in-aeronautical-engineering-from-emirates-aviation-university-in-uae",
+                        "ar_url":  "https://www.for9a.com/opportunity/دبلوم-في-هندسة-الطيران-من-جامعة-الإمارات-للطيران-في-الإمارات-العربية-المتحدة",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:55:42Z"
+                    },
+                    {
+                        "id":  "22382",
+                        "title":  "Partially Funded Scholarships for International Students in Australia from  the University of South Australia",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/international-merit-scholarship",
+                        "ar_url":  "https://www.for9a.com/opportunity/international-merit-scholarship",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:32:52Z"
+                    },
+                    {
+                        "id":  "22472",
+                        "title":  "Undergraduate and Graduate Scholarships at University of south Australia 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/undergraduate-and-graduate-scholarships-at-university-of-south-australia-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-بكالوريوس-ودراسات-عليا-في-جامعة-جنوب-أستراليا-لعام-2024",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:32:54Z"
+                    },
+                    {
+                        "id":  "23978",
+                        "title":  "Funded Scholarship for Pre-medical and Medical Students from BeMo",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/funded-scholarship-for-pre-medical-and-medical-students-from-bemo",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-دراسية-ممولة-مقدمة-من-bemo-للطلاب-في-الطب-ومرحلة-ما-قبل-الطب",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:32:56Z"
+                    },
+                    {
+                        "id":  "24267",
+                        "title":  "Partially Funded Scholarship for Postgraduate Students in Australia from the Australian National University",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partially-funded-australian-government-research-training-program-agrtp-stipend-scholarship-in-australia-92quC",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-برنامج-التدريب-البحثي-الحكومي-الأسترالي-الممول-جزئيا-agrtp-في-أستراليا-4geLn",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:55:45Z"
+                    },
+                    {
+                        "id":  "24583",
+                        "title":  "Partially Funded Scholarships for Undergraduates and Graduates from Canadian University Dubai",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/scholarships-at-canadian-university-dubai",
+                        "ar_url":  "https://www.for9a.com/opportunity/scholarships-at-canadian-university-dubai",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:33:01Z"
+                    },
+                    {
+                        "id":  "24622",
+                        "title":  "Partially-Funded University of Aberdeen Global Scholarship (Africa) for Master’s",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partially-funded-university-of-aberdeen-global-scholarship-africa-for-masters",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ماجستير-دولية-من-جامعة-aberdeen-بتمويل-جزئي",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:55:47Z"
+                    },
+                    {
+                        "id":  "24687",
+                        "title":  "Eastern Mediterranean University Scholarships",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/eastern-mediterranean-university-scholarships",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-جامعة-شرق-البحر-الأبيض-المتوسط",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:33:31Z"
+                    },
+                    {
+                        "id":  "24771",
+                        "title":  "Aberdeen Global Scholarship for Postgraduate Students from Africa",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/aberdeen-global-scholarship-for-postgraduate-students-from-africa",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-aberdeen-global-لطلاب-الدراسات-العليا-من-إفريقيا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:33:33Z"
+                    },
+                    {
+                        "id":  "24852",
+                        "title":  "University of Sydney Undergraduate Scholarship 2026 (Fully Funded)",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/university-of-sydney-undergraduate-scholarship-2026-fully-funded",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-البكالوريوس-من-جامعة-سيدني-2026-ممولة-بالكامل",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:55:50Z"
+                    },
+                    {
+                        "id":  "24977",
+                        "title":  "Concordia University Entrance Scholarships for Bachelor\u0027s Students",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/concordia-university-entrance-scholarships-for-bachelors-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-القبول-في-جامعة-كونكورديا-لطلاب-البكالوريوس",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:33:37Z"
+                    },
+                    {
+                        "id":  "25048",
+                        "title":  "Aberdeen Global Scholarship for African Students",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/aberdeen-global-scholarship-for-african-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-ابردين-العالمية-للطلاب-الأفارقة",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:33:39Z"
+                    },
+                    {
+                        "id":  "25079",
+                        "title":  "Vice-Chancellor’s International Scholarship at Macquarie University",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/vice-chancellors-international-scholarship-at-macquarie-university",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ال-ر-ئيس-ال-جامعة-ال-دولية-في-جامعة-ما-كو-اري",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:33:41Z"
+                    },
+                    {
+                        "id":  "25142",
+                        "title":  "Scholarships at Higher Colleges of Technology in the UAE",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/scholarships-at-higher-colleges-of-technology-in-the-uae",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-دراسية-في-كليات-التقنية-العليا-في-الإمارات",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:33:43Z"
+                    },
+                    {
+                        "id":  "25144",
+                        "title":  "Hamad Bin Khalifa University Scholarship in Qatar",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/hamad-bin-khalifa-university-scholarship-in-qatar",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-حمد-بن-خليفة-في-قطر-ممولة-بالكامل-2026-تقدم-الآن",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:55:52Z"
+                    },
+                    {
+                        "id":  "26273",
+                        "title":  "University of Manitoba International Undergraduate Student Bursary 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/university-of-manitoba-international-undergraduate-student-bursary-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-مانيتوبا-للطلاب-الدوليين-من-البكالوريوس-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:34:23Z"
+                    },
+                    {
+                        "id":  "26300",
+                        "title":  "Tsinghua University Master’s Scholarship 2026 in China – Partial Funding for Global Students",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/schwarzman-scholars-program-2024",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-شوارتزمان-للطلاب-2024",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:34:25Z"
+                    },
+                    {
+                        "id":  "26501",
+                        "title":  "University of Aberdeen Global Scholarships for Postgraduate Students from Africa Partially Funded",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/university-of-aberdeen-global-scholarships-for-postgraduate-students-from-africa",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-أبردين-العالمية-لطلاب-الدراسات-العليا-من-أفريقيا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:34:27Z"
+                    },
+                    {
+                        "id":  "26684",
+                        "title":  "GIST International Scholarships in South Korea 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/gist-international-scholarships-in-south-korea-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-gist-الدولية-الممولة-بالكامل-في-كوريا-الجنوبية-2026-2027",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:34:29Z"
+                    },
+                    {
+                        "id":  "26753",
+                        "title":  "Fully Funded Melbourne Graduate Research Scholarships in Australia",
+                        "status":  "failed",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-melbourne-graduate-research-scholarships-in-australia",
+                        "ar_url":  null,
+                        "error":  "EN: source page removed from for9a (redirects to https://www.for9a.com/opportunity)",
+                        "fetched_at":  "2026-06-10T23:54:10Z"
+                    },
+                    {
+                        "id":  "26788",
+                        "title":  "Dixson Scholarship at the University of Melbourne",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/dixson-scholarship-at-the-university-of-melbourne",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-dixson-في-جامعة-melbourne",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:34:32Z"
+                    },
+                    {
+                        "id":  "26790",
+                        "title":  "Dato’ Kho Hui Meng Scholarship at Singapore Management University",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/dato-kho-hui-meng-scholarship-at-singapore-management-university",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-dato-kho-hui-meng-الم-مولة-ب-ش-كل-كامل-في-جامعة-smu",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:34:34Z"
+                    },
+                    {
+                        "id":  "26886",
+                        "title":  "University of Guelph Economics Faculty Alumni Scholarship",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/university-of-guelph-economics-faculty-alumni-scholarship",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-كلية-الاقتصاد-و-الخريجين-في-جامعة-guelph",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:34:36Z"
+                    },
+                    {
+                        "id":  "26962",
+                        "title":  "Seoul National University Scholarships in South Korea",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/seoul-national-university-scholarships-in-south-korea",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-جامعة-سيئول-الوطنية-في-كوريا-الجنوبية",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:34:40Z"
+                    },
+                    {
+                        "id":  "27008",
+                        "title":  "Tsinghua University Scholarship in China 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/tsinghua-university-scholarship-in-china-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-تسينغهوا-الممولة-بالكامل-في-الصين-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:34:42Z"
+                    },
+                    {
+                        "id":  "27063",
+                        "title":  "Rhodes Scholarship for Postgraduate Studies at Oxford University",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/rhodes-scholarship-for-postgraduate-studies-at-oxford-university",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-رودس-للدراسات-العليا-في-جامعة-أكسفورد",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:34:49Z"
+                    },
+                    {
+                        "id":  "27126",
+                        "title":  "The Russian Government Scholarship 2026 is fully funded with a preparatory year",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/the-russian-government-scholarship-2026-is-fully-funded-with-a-preparatory-year",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-الحكومة-الروسية-2026-ممولة-بالكامل-تقدم-الآن",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:34:51Z"
+                    },
+                    {
+                        "id":  "27127",
+                        "title":  "7 Japanese Government (MEXT) Funded Scholarships for International Students 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/7-japanese-government-mext-funded-scholarships-for-international-students-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-الحكومة-اليابانية-mext-ممولة-للطلاب-الدوليين-2026-تقدم-الآن",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:34:53Z"
+                    },
+                    {
+                        "id":  "27188",
+                        "title":  "Great Wall Program \u0026 Student Exchange Program by Chinese Government 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/great-wall-program-student-exchange-program-by-chinese-government-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-الحكومة-الصينية-ممولة-بالكامل-لعام-2026-تقدم-الآن",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:35:00Z"
+                    },
+                    {
+                        "id":  "27190",
+                        "title":  "University of Westminster GREAT Scholarship for Egyptian Students January 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/university-of-westminster-great-scholarship-for-egyptian-students-january-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-westminster-للطلاب-المصريين-في-بريطانيا-لدراسة-الماجستير-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:35:02Z"
+                    },
+                    {
+                        "id":  "27191",
+                        "title":  "Undergraduate and Graduate NL Scholarships for International Students 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/undergraduate-and-graduate-nl-scholarships-for-international-students-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-الحكومة-الهولندية-لطلاب-البكالوريوس-والماجستير-للعام-الدراسي-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:35:04Z"
+                    },
+                    {
+                        "id":  "27192",
+                        "title":  "Government of Ireland Postgraduate Scholarships 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/government-of-ireland-postgraduate-scholarships-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-الحكومة-الإيرلندية-ممولة-بالكامل-لعام-2026-تقدم-الآن",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:35:06Z"
+                    },
+                    {
+                        "id":  "27207",
+                        "title":  "GKS Scholarship 2026 Undergraduate in South Korea",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/gks-scholarship-2026-undergraduate-in-south-korea",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-الحكومة-الكورية-gks-ممولة-بالكامل-2026-للدراسة-في-كوريا-الجنوبية",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:35:09Z"
+                    },
+                    {
+                        "id":  "27320",
+                        "title":  "Lusail University Scholarship to Study in Qatar 2026 | Register Now for Free!",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/lusail-university-scholarship-to-study-in-qatar-2026-register-now-for-free",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-لوسيل-للدراسة-في-قطر-2026-سجل-مجانا-الآن",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:55:55Z"
+                    },
+                    {
+                        "id":  "27325",
+                        "title":  "Mohammed bin Zayed University Artificial Intelligence Scholarship Fully Funded | Register for free!",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/mohammed-bin-zayed-university-artificial-intelligence-scholarship-fully-funded-register-for-free",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-محمد-بن-زايد-للذكاء-الاصطناعي-ممولة-بالكامل-سجل-مجانا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:35:13Z"
+                    },
+                    {
+                        "id":  "27837",
+                        "title":  "Nantes Tech University Fully Funded Scholarship",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/nantes-tech-university-fully-funded-scholarship",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-نانت-تيك-الممولة-بالكامل",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:35:15Z"
+                    },
+                    {
+                        "id":  "28009",
+                        "title":  "Partially-Funded University of London Palestinian Scholarship for Bachelor and Master’s",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partially-funded-university-of-london-palestinian-scholarship-for-bachelor-and-masters",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-الفلسطينيين-للبكالوريوس-والماجستير-من-جامعة-لندن-بتمويل-جزئي",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:55:57Z"
+                    },
+                    {
+                        "id":  "28015",
+                        "title":  "Fully Funded Verona University Scholarship in Italy",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-verona-university-scholarship-in-italy",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-فيرونا-الممولة-بالكامل-في-إيطاليا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:35:20Z"
+                    },
+                    {
+                        "id":  "28016",
+                        "title":  "Fully Funded Scholarship at Ancona University in Italy",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-scholarship-at-ancona-university-in-italy",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-بالكامل-في-جامعة-أنكونا-بإيطاليا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:35:22Z"
+                    },
+                    {
+                        "id":  "28017",
+                        "title":  "University of Cassino Scholarship in Italy – Partial or Full Funding",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/university-of-cassino-scholarship-in-italy-partial-or-full-funding",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-كاسينو-في-إيطاليا-تمويل-جزئي-أو-كامل",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:35:24Z"
+                    },
+                    {
+                        "id":  "28018",
+                        "title":  "LUISS University Scholarship in Italy – Fully or Partially Funded",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/luiss-university-scholarship-in-italy-fully-or-partially-funded",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-لويس-في-إيطاليا-بتمويل-كامل-أو-جزئي",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:51:54Z"
+                    },
+                    {
+                        "id":  "28019",
+                        "title":  "Fully Funded Scholarship at Autonomous University of Madrid, Spain",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-scholarship-at-autonomous-university-of-madrid-spain",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-مدريد-المستقلة-في-إسبانيا-بتمويل-كامل",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:36:29Z"
+                    },
+                    {
+                        "id":  "28020",
+                        "title":  "Fully Funded University of Granada Scholarship in Spain",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-university-of-granada-scholarship-in-spain",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-غرناطة-الممولة-بالكامل-في-إسبانيا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:37:03Z"
+                    },
+                    {
+                        "id":  "28021",
+                        "title":  "Fully Funded Scholarship at Bilbao University, Spain",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-scholarship-at-bilbao-university-spain",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-بلباو-في-إسبانيا-بتمويل-كامل",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:37:06Z"
+                    },
+                    {
+                        "id":  "28022",
+                        "title":  "Oita University Fully Funded Scholarship in Japan",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/oita-university-fully-funded-scholarship-in-japan",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-أويتا-الممولة-بالكامل-في-اليابان",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:37:10Z"
+                    },
+                    {
+                        "id":  "28023",
+                        "title":  "Shibaura University Fully Funded Scholarship in Japan",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/shibaura-university-fully-funded-scholarship-in-japan",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-شيباورا-بتمويل-كامل-في-اليابان",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:37:13Z"
+                    },
+                    {
+                        "id":  "28024",
+                        "title":  "Tohoku University Fully Funded Scholarship in Japan",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/tohoku-university-fully-funded-scholarship-in-japan",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-توهوكو-الممولة-بالكامل-في-اليابان",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:37:15Z"
+                    },
+                    {
+                        "id":  "28025",
+                        "title":  "Fully Funded Kagawa University Scholarship in Japan",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-kagawa-university-scholarship-in-japan",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-كاغاوا-الممولة-بالكامل-في-اليابان",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:37:21Z"
+                    },
+                    {
+                        "id":  "28026",
+                        "title":  "Fully Funded Fujian University Scholarship in China",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-fujian-university-scholarship-in-china",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-فوجيان-الممولة-بالكامل-في-الصين",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:51:57Z"
+                    },
+                    {
+                        "id":  "28027",
+                        "title":  "Fully Funded Scholarship at Xi’an Jiaotong University, China",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-scholarship-at-xian-jiaotong-university-china",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-شيان-جياوتونغ-الممولة-بالكامل-في-الصين",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:06Z"
+                    },
+                    {
+                        "id":  "28028",
+                        "title":  "Fully Funded Hunan University Scholarship in China",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-hunan-university-scholarship-in-china",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-هونان-الممولة-بالكامل-في-الصين",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:09Z"
+                    },
+                    {
+                        "id":  "28029",
+                        "title":  "Fully Funded Scholarship at Athlone Institute of Technology, Ireland",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-scholarship-at-athlone-institute-of-technology-ireland",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-معهد-أثلون-للتكنولوجيا-الممولة-بالكامل-في-أيرلندا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:13Z"
+                    },
+                    {
+                        "id":  "28032",
+                        "title":  "Kristianstad University Partially Funded Scholarship in Sweden",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/kristianstad-university-partially-funded-scholarship-in-sweden",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-كريستيانستاد-الممولة-جزئيا-في-السويد",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:15Z"
+                    },
+                    {
+                        "id":  "28033",
+                        "title":  "Fully Funded Petroșani University Scholarship in Romania",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-petroșani-university-scholarship-in-romania",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-بيتروشاني-الممولة-بالكامل-في-رومانيا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:17Z"
+                    },
+                    {
+                        "id":  "28035",
+                        "title":  "Babeș-Bolyai University Scholarship in Romania | Fully Funded",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/babeș-bolyai-university-scholarship-in-romania-fully-funded",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-بابيش-بوليا-في-رومانيا-بتمويل-كامل",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:19Z"
+                    },
+                    {
+                        "id":  "28036",
+                        "title":  "Fully Funded Scholarship at Alexandru Ioan Cuza University in Romania",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-scholarship-at-alexandru-ioan-cuza-university-in-romania",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-أليكساندرو-إيوان-كوزا-الممولة-بالكامل-في-رومانيا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:21Z"
+                    },
+                    {
+                        "id":  "28041",
+                        "title":  "Fully Funded Padjadjaran University Scholarship in Indonesia",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-padjadjaran-university-scholarship-in-indonesia",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-بادجادجاران-الممولة-بالكامل-في-إندونيسيا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:23Z"
+                    },
+                    {
+                        "id":  "28042",
+                        "title":  "Fully Funded Scholarship at IPB University in Indonesia",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-scholarship-at-ipb-university-in-indonesia",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-بوغور-الزراعية-الممولة-بالكامل-في-إندونيسيا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:25Z"
+                    },
+                    {
+                        "id":  "28043",
+                        "title":  "Fully Funded Andalas University Scholarship in Indonesia",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-andalas-university-scholarship-in-indonesia",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-أندلس-الممولة-بالكامل-في-إندونيسيا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:28Z"
+                    },
+                    {
+                        "id":  "28044",
+                        "title":  "University of Namur Scholarship in Belgium with Partial and Full Funding",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/university-of-namur-scholarship-in-belgium-with-partial-and-full-funding",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-نامور-في-بلجيكا-بتمويل-جزئي-وكامل",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:31Z"
+                    },
+                    {
+                        "id":  "28045",
+                        "title":  "Fully Funded University of Liège Scholarship in Belgiumlh",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-university-of-liège-scholarship-in-belgiumlh",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-لييج-الممولة-بالكامل-في-بلجيكا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:33Z"
+                    },
+                    {
+                        "id":  "28046",
+                        "title":  "Fully Funded College of Europe Scholarship in Belgium",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-college-of-europe-scholarship-in-belgium",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-كلية-أوروبا-الممولة-بالكامل-في-بلجيكا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:35Z"
+                    },
+                    {
+                        "id":  "28047",
+                        "title":  "KU Leuven Fully Funded Scholarship in Belgium",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/ku-leuven-fully-funded-scholarship-in-belgium",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-لوفان-الممولة-بالكامل-في-بلجيكا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:37Z"
+                    },
+                    {
+                        "id":  "28048",
+                        "title":  "Ghent University Korea Scholarship in South Korea (Fully \u0026 Partially Funded)",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/ghent-university-korea-scholarship-in-south-korea-fully-partially-funded",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-غينت-الكورية-في-كوريا-الجنوبية-بتمويل-كامل-وجزئي",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:44Z"
+                    },
+                    {
+                        "id":  "28166",
+                        "title":  "Fully Funded Innopolis University Scholarship in Russia",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-innopolis-university-scholarship-in-russia",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-innopolis-الممولة-بالكامل-في-روسيا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:46Z"
+                    },
+                    {
+                        "id":  "28243",
+                        "title":  "Fully Funded Scholarship at the German University in Cairo",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-scholarship-at-the-german-university-in-cairo",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-الجامعة-الألمانية-بالقاهرة-الممولة-بالكامل",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:49Z"
+                    },
+                    {
+                        "id":  "28301",
+                        "title":  "Fully Funded Women in Tech Scholarships at Berlin School of Business and Innovation",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-women-in-tech-scholarships-at-berlin-school-of-business-and-innovation",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-دراسية-ممولة-بالكامل-للنساء-في-مجال-التكنولوجيا-بجامعة-برلين-للأعمال-والابتكار",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:38:51Z"
+                    },
+                    {
+                        "id":  "28773",
+                        "title":  "Fully Funded Scholarships for STEM Disciplines in Germany from DAAD",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-scholarships-for-stem-disciplines-in-germany-from-daad",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-دراسية-ممولة-بالكامل-في-مجالات-العلوم-والتكنولوجيا-والهندسة-والرياضيات-stem-في-ألمانيا-من-daad",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:39:37Z"
+                    },
+                    {
+                        "id":  "28894",
+                        "title":  "McCall MacBain Scholarship | Fully Funded Master\u0027s Programs at McGill University in Canada",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/mccall-macbain-scholarship-fully-funded-masters-programs-at-mcgill-university-in-canada",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-mccall-macbain-تمويل-كامل-لبرامج-الماجستير-في-جامعة-ماكغيل-الكندية",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:39:40Z"
+                    },
+                    {
+                        "id":  "28895",
+                        "title":  "Abu Dhabi University Partial Scholarship for Students Residing in the UAE and GCC – University Scholarship",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/abu-dhabi-university-partial-scholarship-for-students-residing-in-the-uae-and-gcc-university-scholarship",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-أبوظبي-الجزئية-للطلاب-المقيمين-في-الإمارات-ودول-الخليج-university-scholarship",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:39:42Z"
+                    },
+                    {
+                        "id":  "28899",
+                        "title":  "Fully Funded Skoltech University Scholarship for Graduate Studies in Moscow – Skoltech Scholarship",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-skoltech-university-scholarship-for-graduate-studies-in-moscow-skoltech-scholarship",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-سكولتك-الروسية-الممولة-بالكامل-للدراسات-العليا-في-موسكو-skoltech-scholarship",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:39:44Z"
+                    },
+                    {
+                        "id":  "29043",
+                        "title":  "Cambridge Opportunity Studentships and Get In Cambridge Studentships 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/cambridge-opportunity-studentships-and-get-in-cambridge-studentships-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-دراسية-بجامعة-كامبريدج-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:39:46Z"
+                    },
+                    {
+                        "id":  "29378",
+                        "title":  "Yonsei International Summer School Scholarship – Academic Summer Program – Partial Funding",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/summer-internship-program-in-south-korea",
+                        "ar_url":  "https://www.for9a.com/opportunity/برنامج-التدريب-الصيفي-في-كوريا-الجنوبية",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:39:54Z"
+                    },
+                    {
+                        "id":  "29379",
+                        "title":  "Max Planck Computer Science Scholarship in Germany",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/max-planck-computer-science-scholarship-in-germany",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ماكس-بلانك-للدراسات-في-علوم-الكمبيوتر-في-ألمانيا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:56:00Z"
+                    },
+                    {
+                        "id":  "29397",
+                        "title":  "Khalifa University Scholarship in Science and Engineering – Fully Funded",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/full-khalifa-university-scholarship-for-internationals-in-uae",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-خليفة-للأجانب-بالإمارات",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:40:21Z"
+                    },
+                    {
+                        "id":  "29401",
+                        "title":  "Meiji University International Scholarship for Excellence in Various Fields – Partial or Full Funding",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/meiji-university-scholarship-in-japan-for-international-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-ميجي-في-اليابان-للطلاب-الدوليين",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:40:24Z"
+                    },
+                    {
+                        "id":  "29404",
+                        "title":  "JEES–Docomo International Student Scholarship for Graduate Students in Communications – Partial Funding",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/saitama-university-scholarship-in-japan",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-دراسية-في-جامعة-سايتاما-في-اليابان",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:43:23Z"
+                    },
+                    {
+                        "id":  "29411",
+                        "title":  "SETU International Academic Excellence Scholarships in Various Fields – Partial Funding",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/carlo-institute-of-technology-scholarship-study-opportunities-for-bachelors-and-masters",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-معهد-كارلو-للتكنولوجيا-فرص-دراسية-للبكالوريوس-والماجستير",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:43:26Z"
+                    },
+                    {
+                        "id":  "29417",
+                        "title":  "Bilkinge University of Technology Scholarship for International Students - Partially Funded",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/blekinge-institute-of-technology-scholarship-for-international-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-بيليكنغه-للتكنولوجيا-للطلبة-الدوليين",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:43:30Z"
+                    },
+                    {
+                        "id":  "29423",
+                        "title":  "UHI Scholarship Program for Bachelor\u0027s and Master\u0027s Degrees",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/uhi-scholarship-program-for-bachelors-and-masters-degrees",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-هايلاندس-والجزر-للبكالوريوس-والماجستير",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:43:32Z"
+                    },
+                    {
+                        "id":  "29438",
+                        "title":  "Islamic University of Indonesia (UII) Scholarship – Undergraduate and Postgraduate Programs with Partial and Full Funding",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/islamic-university-of-indonesia-scholarships-for-international-students-2023",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-الجامعة-الاسلامية-في-إندونيسيا-للطلاب-الدوليين-2023",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:24:46Z"
+                    },
+                    {
+                        "id":  "29446",
+                        "title":  "French Government Medical Specialties Scholarship",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/french-government-medical-specialties-scholarship",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-التخصصات-الطبية-في-فرنسا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:24:49Z"
+                    },
+                    {
+                        "id":  "29448",
+                        "title":  "Carleton University Scholarship in Canada for Undergraduate Students (Partial Funding)",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/carleton-university-scholarship-in-canada-for-research-and-study",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-كارلتون-في-كندا-للأبحاث-والدراسة",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:43:35Z"
+                    },
+                    {
+                        "id":  "29454",
+                        "title":  "Heinrich Heine University Düsseldorf Scholarship for International Students",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/heinrich-heine-university-düsseldorf-scholarship-for-international-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-هاينريش-هاي-نهه-دوسلدورف-للطلاب-الدوليين",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:43:38Z"
+                    },
+                    {
+                        "id":  "29455",
+                        "title":  "Tarek Juffali Fellowship Program at the American University in Cairo",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/tarek-juffali-fellowship-program-at-the-american-university-in-cairo",
+                        "ar_url":  "https://www.for9a.com/opportunity/برنامج-زمالة-طارق-الجفالي-في-الجامعة-الأمريكية-بالقاهرة",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:43:41Z"
+                    },
+                    {
+                        "id":  "29462",
+                        "title":  "Vancouver University Scholarships for Bachelor\u0027s and Master\u0027s Degree in Canada",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/vancouver-university-scholarships-for-bachelors-and-masters-degree-in-canada",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-فانكوفر-لدراسة-البكالوريوس-والماجستير-في-كندا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:43:43Z"
+                    },
+                    {
+                        "id":  "29471",
+                        "title":  "Fully Funded Scholarship at Shibaura Institute in Japan",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-scholarship-at-shibaura-institute-in-japan",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-دراسية-ممولة-بالكامل-في-جامعة-شيباورا-اليابانية",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:43:46Z"
+                    },
+                    {
+                        "id":  "29475",
+                        "title":  "Acadia University Scholarship in Canada for International Students",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/acadia-university-scholarship-in-canada-for-international-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-أكاديا-للطلاب-الدوليين-في-كندا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:43:48Z"
+                    },
+                    {
+                        "id":  "29485",
+                        "title":  "Prince Edward Island University Scholarship in Egypt",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/prince-edward-island-university-scholarship-in-egypt",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-جزيرة-الأمير-إدوارد-في-مصر",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:24:51Z"
+                    },
+                    {
+                        "id":  "29488",
+                        "title":  "Amgen Scholars Scholarship – Fully Funded Summer Research Program in Science and Biology",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/kyoto-university-scholarship-opportunity-for-international-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/فرصة-منحة-جامعة-كيوتو-للطلاب-الدوليين",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:43:52Z"
+                    },
+                    {
+                        "id":  "29531",
+                        "title":  "International Student Scholarships – University of Missouri (Mizzou) in the field of Undergraduate and Graduate Studies",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/university-of-missouri-scholarship-for-bachelors-and-masters",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-ولاية-ميسوري-للبكالوريوس-والماجستير",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:43:54Z"
+                    },
+                    {
+                        "id":  "29536",
+                        "title":  "University of Sydney Scholarship for International Students",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/university-of-sydney-scholarship-for-international-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-سيدني-للطلاب-الدوليين",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:43:56Z"
+                    },
+                    {
+                        "id":  "29541",
+                        "title":  "University of Duisburg-Essen Scholarship in Germany for Outstanding Students",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/university-of-duisburg-essen-scholarship-in-germany-for-outstanding-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-ديسبورغ-إيسن-في-ألمانيا-للطلاب-المتفوقين",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:43:59Z"
+                    },
+                    {
+                        "id":  "29544",
+                        "title":  "University of Emirates Aviation Scholarship for Foreigners",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/university-of-emirates-aviation-scholarship-for-foreigners-2023",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-الإمارات-للطيران-للأجانب-2023",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:44:01Z"
+                    },
+                    {
+                        "id":  "29557",
+                        "title":  "University of Science and Technology (UST) Scholarship in South Korea",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/hamy-university-of-science-and-technology-scholarship-in-south-korea",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-هامي-للعلوم-والتكنولوجيا-في-كوريا-الجنوبية",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:44:04Z"
+                    },
+                    {
+                        "id":  "29565",
+                        "title":  "Ulm University Scholarship Opportunity in Germany",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/ulm-university-scholarship-fully-funded-study-opportunity-in-germany",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-أولم-فرصة-دراسية-ممولة-بالكامل-في-ألمانيا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:47:32Z"
+                    },
+                    {
+                        "id":  "29571",
+                        "title":  "Hesse State Scholarships in Germany – Academic and Research Scholarships – Full and Partial Funding",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/hessen-doctoral-scholarships-in-germany",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-دكتوراه-هيسن-في-ألمانيا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:47:34Z"
+                    },
+                    {
+                        "id":  "29712",
+                        "title":  "University of Macerata Scholarships for Bachelor’s and Master’s Programs – Partial Funding",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/university-of-macerata-scholarships-for-bachelors-and-masters-programs-partial-funding",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-جامعة-ماشيراتا-لبرامج-البكالوريوس-والماجستير-بتمويل-جزئي",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:47:36Z"
+                    },
+                    {
+                        "id":  "29735",
+                        "title":  "Yale University Undergraduate Scholarship – Fully Funded Financial Aid Program",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/yale-university-undergraduate-scholarship-fully-funded-financial-aid-program",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-ييل-للدراسة-الجامعية-دعم-مالي-كامل-للطلبة-المقبولين",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:47:38Z"
+                    },
+                    {
+                        "id":  "29892",
+                        "title":  "Fully Funded Bachelor\u0027s Scholarship in USA 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-bachelors-scholarship-in-usa-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-لدراسة-البكالوريوس-في-أمريكا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:47:40Z"
+                    },
+                    {
+                        "id":  "29966",
+                        "title":  "Global Korea Scholarship (GKS) – Fully Funded 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/global-korea-scholarship-gks-fully-funded-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-كوريا-العالمية-الدولية-2026-الممولة-بالكامل",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:47:42Z"
+                    },
+                    {
+                        "id":  "30017",
+                        "title":  "Fully Funded Undergraduate, Master’s \u0026 PhD Scholarship in China 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-undergraduate-masters-phd-scholarship-in-china-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-بالكامل-لدراسة-البكالوريوس-والماجستير-في-الصين-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:24:53Z"
+                    },
+                    {
+                        "id":  "30035",
+                        "title":  "Fully Funded Scholarship for Bachelor’s, Master’s, and Doctoral Studies in Italy – 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-bachelors-and-masters-scholarship-in-italy-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-بالكامل-لدراسة-البكالوريوس-والماجستير-في-إيطاليا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:24:55Z"
+                    },
+                    {
+                        "id":  "30057",
+                        "title":  "Partially Funded Bachelor\u0027s Scholarship in USA 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partially-funded-bachelors-scholarship-in-usa-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-جزئيا-لدراسة-البكالوريوس-في-أمريكا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:47:44Z"
+                    },
+                    {
+                        "id":  "30089",
+                        "title":  "Fully Funded Master\u0027s Scholarship in Belgium 2026 for International Students",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-masters-scholarship-in-belgium-2026-for-international-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-بالكامل-لدراسة-الماجستير-في-بلجيكا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:24:59Z"
+                    },
+                    {
+                        "id":  "30099",
+                        "title":  "Fully Funded Master\u0027s \u0026 PhD Scholarship in Germany 2027 for Africans",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-masters-phd-scholarship-in-germany-2027-for-africans",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-بالكامل-لدراسة-الماجستير-والدكتوراه-في-ألمانيا-2027",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:25:02Z"
+                    },
+                    {
+                        "id":  "30169",
+                        "title":  "Partially Funded Global KU Scholarships in South Korea 2026 By Korea University",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partially-funded-global-ku-scholarships-in-south-korea-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-جزئيا-للدراسة-في-كوريا-الجنوبية-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:47:46Z"
+                    },
+                    {
+                        "id":  "30171",
+                        "title":  "Fully Funded PhD Scholarships in Spain 2026 For Different Specialties by The Spanish Government",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-phd-scholarships-in-spain-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-ممولة-بالكامل-لدراسة-الدكتوراه-في-إسبانيا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:47:48Z"
+                    },
+                    {
+                        "id":  "30184",
+                        "title":  "Partial Scholarships for Master\u0027s at Nottingham Trent University 2027, UK",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partial-scholarships-for-masters-at-nottingham-trent-university-2027-uk",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-جزئيا-لدراسة-الماجستير-في-المملكة-المتحدة-2027",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:47:50Z"
+                    },
+                    {
+                        "id":  "30185",
+                        "title":  "Partially Funded Bachelor\u0027s and Master\u0027s Scholarships in the UK 2027",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partially-funded-bachelors-and-masters-scholarships-in-the-uk-2027",
+                        "ar_url":  "https://www.for9a.com/opportunity/ntu-international-scholarships-uk-2026-7n2pj",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:47:52Z"
+                    },
+                    {
+                        "id":  "30200",
+                        "title":  "Lester B. Pearson International Scholarship 2026 in Canada Fully Funded For Bachelor",
+                        "status":  "failed",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-bachelors-scholarship-in-canada-2027",
+                        "ar_url":  null,
+                        "error":  "EN: source page removed from for9a (redirects to https://www.for9a.com/opportunity)",
+                        "fetched_at":  "2026-06-10T23:54:13Z"
+                    },
+                    {
+                        "id":  "30218",
+                        "title":  "Onsi Sawiris Scholarship 2026 for Egyptian Students Fully Funded Bachelor’s in USA",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/onsi-sawiris-undergraduate-scholarship-usa",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-أنسي-ساويرس-بكالوريوس-أمريكا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:48:53Z"
+                    },
+                    {
+                        "id":  "30258",
+                        "title":  "Partially Funded Scholarship for Master’s and PhD Studies in Russia 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-masters-phd-scholarships-in-russia-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-بالكامل-لدراسة-الماجستير-والدكتوراه-في-روسيا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:48:55Z"
+                    },
+                    {
+                        "id":  "30278",
+                        "title":  "Fully Funded Scholarship in Canada 2026 for Global Development",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-scholarship-in-canada-2026-for-global-development",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-بالكامل-للدراسة-في-كندا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:25:04Z"
+                    },
+                    {
+                        "id":  "30332",
+                        "title":  "Onsi Sawiris Graduate Scholarship in USA",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/onsi-sawiris-graduate-scholarship-usa",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-أنسي-ساويرس-للدراسات-العليا-أمريكا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:48:57Z"
+                    },
+                    {
+                        "id":  "30360",
+                        "title":  "Fully Funded Master\u0027s and PhD Scholarships in Germany 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-masters-and-phd-scholarships-in-germany-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-بالكامل-لدراسة-الماجستير-والدكتوراه-في-ألمانيا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:10Z"
+                    },
+                    {
+                        "id":  "30377",
+                        "title":  "Fully Funded Scholarship in the United States for Jordanians 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-scholarship-in-the-united-states-for-jordanians-2026-9tazh",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-بالكامل-في-الولايات-المتحدة-للأردنيين-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:12Z"
+                    },
+                    {
+                        "id":  "30379",
+                        "title":  "Master in Hospitality Management at Les Roches",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/master-in-hospitality-management-les-roches",
+                        "ar_url":  "https://www.for9a.com/opportunity/ماجستير-في-إدارة-الضيافة-من-معهد-ليه-روش-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:15Z"
+                    },
+                    {
+                        "id":  "30390",
+                        "title":  "MBA in International Tourism and Hospitality Management in Spain 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-masters-scholarship-in-spain-2026-for-tourism-studies",
+                        "ar_url":  "https://www.for9a.com/opportunity/فرصة-منحة-ممولة-بالكامل-لدرجة-الماجستير-في-إسبانيا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:29Z"
+                    },
+                    {
+                        "id":  "30407",
+                        "title":  "Master’s in Renewable and Sustainable Energy in the United Kingdom 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-masters-scholarship-in-sustainable-energy-uk-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ماجستير-ممولة-بالكامل-في-الطاقة-المستدامة-في-المملكة-المتحدة-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:31Z"
+                    },
+                    {
+                        "id":  "30408",
+                        "title":  "Partially Funded Master\u0027s Scholarship in UK From York University 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partially-funded-masters-scholarship-in-uk-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-جزئيا-لدراسة-الماجستير-في-المملكة-المتحدة-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:33Z"
+                    },
+                    {
+                        "id":  "30409",
+                        "title":  "Partial Funded Master\u0027s Scholarship in Artificial Intelligence UK 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partial-funded-masters-scholarship-in-artificial-intelligence-uk-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-جزئيا-لدراسة-ماجستير-الذكاء-الاصطناعي-في-المملكة-المتحدة-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:35Z"
+                    },
+                    {
+                        "id":  "30411",
+                        "title":  "Partially Funded Master’s Program in Maritime and Admiralty Law in Ireland 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partially-funded-law-masters-program-in-ireland-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/برنامج-قانون-عام-ممول-جزئيا-في-أيرلندا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:25:06Z"
+                    },
+                    {
+                        "id":  "30415",
+                        "title":  "Opportunity to Study a Master’s in Human Resource Management and Strategic Change 2026 in Spain",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-masters-scholarship-in-human-resource-management-spain-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ممولة-بالكامل-لدراسة-ماجستير-في-إدارة-الموارد-البشرية-بإسبانيا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:38Z"
+                    },
+                    {
+                        "id":  "30416",
+                        "title":  "Fully Funded Master\u0027s Scholarship in Business Administration in Spain 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-masters-scholarship-in-business-administration-in-spain-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-ماجستير-ممولة-بالكامل-في-إدارة-الأعمال-في-إسبانيا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:40Z"
+                    },
+                    {
+                        "id":  "30417",
+                        "title":  "Leadership and Talent Management Program in Spain 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-masters-scholarship-in-spain-2026-for-hr",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-دراسية-ممولة-بالكامل-لدراسة-الماجستير-في-إسبانيا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:42Z"
+                    },
+                    {
+                        "id":  "30448",
+                        "title":  "SOAS Master\u0027s Scholarships (International) 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/soas-masters-scholarships-international-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منح-ماجستير-جامعة-soas-الدولية-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:44Z"
+                    },
+                    {
+                        "id":  "30471",
+                        "title":  "Fully Funded Fulbright Foreign Student Scholarship to the USA, 2026-2027",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-fulbright-foreign-student-scholarship-to-the-usa-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-فلبرايت-الممولة-بالكامل-للدراسات-العليا-في-أمريكا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:46Z"
+                    },
+                    {
+                        "id":  "30495",
+                        "title":  "Robert Gordon University Vice-Chancellor Scholarship 2026 (Fully Funded Bachelor’s)",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/vice-chancellors-full-scholarship-for-bachelors-at-robert-gordon-university-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-نائب-المستشار-ممولة-بالكامل-للبكالوريوس-في-جامعة-روبرت-غوردون-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:48Z"
+                    },
+                    {
+                        "id":  "30501",
+                        "title":  "GREAT Scholarship at the University of Kent in the UK 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partially-funded-great-scholarship-at-university-of-kent-uk-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-great-الممولة-جزئيا-في-جامعة-كنت-بريطانيا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:50Z"
+                    },
+                    {
+                        "id":  "30513",
+                        "title":  "Monash International Leadership Scholarship 2026 in Australia with Full Tuition Funding",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-monash-leadership-scholarship-for-bachelors-and-masters-australia-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-موناش-الدولية-للقيادة-ممولة-بالكامل-في-أستراليا-للبكالوريوس-والماجستير-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:25:09Z"
+                    },
+                    {
+                        "id":  "30551",
+                        "title":  "Fully Funded Fulbright Scholarships for Masters/PhD in USA 2026 Fully Funded",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-fulbright-scholarships-for-mastersphd-in-usa-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-فولبرايت-الدراسية-للدراسات-العليا-في-الولايات-المتحدة-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:52Z"
+                    },
+                    {
+                        "id":  "30553",
+                        "title":  "Florida Nursing Scholarship 2026 for Nursing Students in Florida",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/408-nurses-training-scholarship-at-eastern-florida-state-college-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-تدريب-الممرضات-408-في-فلوريدا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:49:57Z"
+                    },
+                    {
+                        "id":  "30563",
+                        "title":  "University of Bristol Think Big Scholarship 2026 in the UK (Up to £26,000 Funding)",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-undergraduate-masters-scholarship-at-bristol-university-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-دراسية-ممولة-بالكامل-للبكالوريوس-والماجستير-في-جامعة-بريستول-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:50:04Z"
+                    },
+                    {
+                        "id":  "30568",
+                        "title":  "A \u0026 J Duct Cleaning Scholarship 2026 in the USA with Funding up to $2,000",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/a-j-duct-cleaning-need-based-scholarship-usa-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-a-j-duct-cleaning-للطلاب-بالولايات-المتحدة-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:50:06Z"
+                    },
+                    {
+                        "id":  "30708",
+                        "title":  "Fully Funded ADB Master\u0027s Scholarship in Asia and Pacific 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-adb-masters-scholarship-in-asia-and-pacific-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-adb-كاملة-التمويل-لدراسة-الماجستير-في-آسيا-والمحيط-الهادي-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:50:08Z"
+                    },
+                    {
+                        "id":  "30709",
+                        "title":  "Fully Funded Scholarships for Bachelor\u0027s, Master\u0027s, and PhD in Germany 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-scholarships-for-bachelors-masters-and-phd-in-germany-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-كاملة-لدراسة-البكالوريوس-والماجستير-والدكتوراه-في-ألمانيا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:50:13Z"
+                    },
+                    {
+                        "id":  "30942",
+                        "title":  "Fully Funded Master\u0027s Scholarship at SBW Berlin Germany 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/fully-funded-masters-scholarship-at-sbw-berlin-germany-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-sbw-berlin-ممولة-بالكامل-للماجستير-في-ألمانيا-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:50:15Z"
+                    },
+                    {
+                        "id":  "30969",
+                        "title":  "Partially Funded Harvard MBA Scholarship 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/partially-funded-harvard-mba-scholarship-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-دراسية-جزئية-لدراسة-ماجستير-إدارة-الأعمال-في-هارفارد-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:50:17Z"
+                    },
+                    {
+                        "id":  "31109",
+                        "title":  "JISPA 2026: Fully Funded Master\u0027s \u0026 PhD Scholarships in Japan",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/jispa-2026-fully-funded-masters-phd-scholarships-in-japan",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-jispa-2026-ممولة-بالكامل-للحصول-على-الماجستير-والدكتوراه-في-اليابان",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:50:19Z"
+                    },
+                    {
+                        "id":  "31292",
+                        "title":  "Merit Scholarship at QatarDebate | An Opportunity to Develop Debate and Leadership Skills for Youth 2026",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/merit-scholarship-at-qatardebate-an-opportunity-to-develop-debate-and-leadership-skills-for-youth-2026",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-الجدارة-في-qatardebate-فرصة-لتطوير-مهارات-المناظرة-والقيادة-للشباب-2026",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:50:21Z"
+                    },
+                    {
+                        "id":  "31299",
+                        "title":  "NYC Mayor\u0027s Undergraduate Scholarship 2026: Work and Study Opportunity",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/nyc-mayors-undergraduate-scholarship-2026-work-and-study-opportunity",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-عمدة-نيويورك-2026-للدراسة-والعمل-في-حكومة-المدينة",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:50:23Z"
+                    },
+                    {
+                        "id":  "31371",
+                        "title":  "Study in Germany 2026: A Unique Opportunity for Gulf Students, Graduate and Join Europe’s Strongest Job Market",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/study-in-germany-2026-top-universities-international-degree-programs",
+                        "ar_url":  "https://www.for9a.com/opportunity/الدراسة-في-ألمانيا-2026-أفضل-الجامعات-الدولية-وبرامج-البكالوريوس-والماجستير",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:56:02Z"
+                    },
+                    {
+                        "id":  "31494",
+                        "title":  "Human Rights Scholarship 2026 at the University of Melbourne | Fully Funded Master’s \u0026 PhD in Australia",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/human-rights-scholarship-2026-at-the-university-of-melbourne-fully-funded-masters-phd-in-australia",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-حقوق-الإنسان-2026-في-university-of-melbourne-ممولة-بالكامل-للماجستير-والدكتوراه-في-أستراليا",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:50:27Z"
+                    },
+                    {
+                        "id":  "31560",
+                        "title":  "University of Winnipeg Scholarship 2026 in Canada for International Students with Funding up to CAD 5,000",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/university-of-winnipeg-scholarship-2026-in-canada-for-international-students-with-funding-up-to-cad-5000",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-university-of-winnipeg-2026-في-كندا-للطلاب-الدوليين-بتمويل-يصل-إلى-5000-دولار",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:50:33Z"
+                    },
+                    {
+                        "id":  "31576",
+                        "title":  "Study in Istanbul: Altınbaş University Scholarship 2026 | Scholarships for International Students",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/study-in-istanbul-altınbaş-university-scholarship-2026-scholarships-for-international-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-altınbaş-university-في-تركيا-2026-منح-دراسية-للطلاب-الدوليين",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:50:35Z"
+                    },
+                    {
+                        "id":  "31577",
+                        "title":  "Üsküdar University Scholarship 2026 in Turkey | Scholarships for International Students",
+                        "status":  "ok",
+                        "en_url":  "https://www.for9a.com/en/opportunity/üsküdar-university-scholarship-2026-in-turkey-scholarships-for-international-students",
+                        "ar_url":  "https://www.for9a.com/opportunity/منحة-جامعة-أوسكودار-في-تركيا-2026-منح-دراسية-للطلاب-الدوليين",
+                        "error":  null,
+                        "fetched_at":  "2026-06-10T23:50:37Z"
+                    }
+                ]
+}

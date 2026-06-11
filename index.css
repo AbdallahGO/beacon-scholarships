@@ -1400,6 +1400,8 @@ select,
   display: flex;
   flex-direction: column;
 }
+/* display:flex above beats the UA [hidden] rule — restore it explicitly */
+.nav-menu[hidden] { display: none; }
 .nav-menu-id {
   font-size: 0.78rem;
   color: var(--ink-soft);

@@ -5,36 +5,85 @@
 
   const A = window.BeaconAuth;
   const db = A.client;
-  const catalogue = Array.isArray(window.SCHOLARSHIPS) ? window.SCHOLARSHIPS : [];
+  const catalogue = Array.isArray(window.SCHOLARSHIPS)
+    ? window.SCHOLARSHIPS
+    : [];
   const byId = new Map(catalogue.map((d) => [String(d.id), d]));
 
   const BUCKET = "user-files";
   const PHOTO_MAX = 5 * 1024 * 1024;
   const DOC_MAX = 10 * 1024 * 1024;
-  const PHOTO_TYPES = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" };
-  const DOC_TYPES = { "application/pdf": "pdf", "image/jpeg": "jpg", "image/png": "png" };
+  const PHOTO_TYPES = {
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/webp": "webp",
+  };
+  const DOC_TYPES = {
+    "application/pdf": "pdf",
+    "image/jpeg": "jpg",
+    "image/png": "png",
+  };
   const DRAFT_KEY = "beacon.profileDraft";
 
   const CEFR = [
-    ["A1", "A1 – Beginner"], ["A2", "A2 – Elementary"], ["B1", "B1 – Intermediate"],
-    ["B2", "B2 – Upper Intermediate"], ["C1", "C1 – Advanced"], ["C2", "C2 – Proficient"],
+    ["A1", "A1 – Beginner"],
+    ["A2", "A2 – Elementary"],
+    ["B1", "B1 – Intermediate"],
+    ["B2", "B2 – Upper Intermediate"],
+    ["C1", "C1 – Advanced"],
+    ["C2", "C2 – Proficient"],
     ["native", "Native"],
   ];
   const cefrLabel = Object.fromEntries(CEFR);
   const DEGREES = [
-    ["", "— choose —"], ["highschool", "High school"], ["bachelor", "Bachelor"],
-    ["master", "Master's"], ["phd", "PhD"],
+    ["", "— choose —"],
+    ["highschool", "High school"],
+    ["bachelor", "Bachelor"],
+    ["master", "Master's"],
+    ["phd", "PhD"],
   ];
-  const PROVIDER_NAMES = { email: "Email & password", google: "Google", facebook: "Facebook", linkedin_oidc: "LinkedIn", x: "X", twitter: "X" };
+  const PROVIDER_NAMES = {
+    email: "Email & password",
+    google: "Google",
+    facebook: "Facebook",
+    linkedin_oidc: "LinkedIn",
+    x: "X",
+    twitter: "X",
+  };
   const CONNECTABLE = ["google", "facebook", "linkedin_oidc", "x"];
 
   const esc = (s) =>
-    String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
-    }[c]));
-  const fmtDate = (s) => { try { return new Date(s).toLocaleDateString(); } catch (e) { return ""; } };
-  const uuid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now() + "-" + Math.random().toString(36).slice(2));
-  const bumpProfileRev = () => { try { localStorage.setItem("beacon.profileRev", String(Date.now())); } catch (e) {} };
+    String(s == null ? "" : s).replace(
+      /[&<>"']/g,
+      (c) =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        })[c],
+    );
+  const fmtDate = (s) => {
+    try {
+      return new Date(s).toLocaleDateString();
+    } catch (e) {
+      return "";
+    }
+  };
+  const uuid = () =>
+    crypto.randomUUID
+      ? crypto.randomUUID()
+      : Date.now() + "-" + Math.random().toString(36).slice(2);
+  const bumpProfileRev = () => {
+    try {
+      localStorage.setItem("beacon.profileRev", String(Date.now()));
+    } catch (e) {}
+  };
+
+  // A ticket is still in cooldown (countdown shown) until cooldown_end passes.
+  const ticketActive = (t) =>
+    t.status !== "void" && new Date(t.cooldown_end).getTime() > Date.now();
 
   const gate = document.getElementById("acctGate");
   const resetBox = document.getElementById("acctReset");
@@ -43,22 +92,31 @@
   let user = null;
   let profile = null; // cached profiles row
   let recovering = false;
+  let tkTimer = null; // ticket countdown interval
 
   // ---- password recovery (contract F2) --------------------------------------
   if (db) {
     db.auth.onAuthStateChange((event) => {
       if (event === "PASSWORD_RECOVERY") {
         recovering = true;
-        gate.hidden = true; acct.hidden = true; resetBox.hidden = false;
+        gate.hidden = true;
+        acct.hidden = true;
+        resetBox.hidden = false;
       }
     });
   }
   document.getElementById("resetForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const pw = e.target.password.value;
-    if (pw.length < 8) { A.toast("Password needs at least 8 characters."); return; }
+    if (pw.length < 8) {
+      A.toast("Password needs at least 8 characters.");
+      return;
+    }
     const { error } = await db.auth.updateUser({ password: pw });
-    if (error) { A.toast("Couldn't save that password — please try again."); return; }
+    if (error) {
+      A.toast("Couldn't save that password — please try again.");
+      return;
+    }
     recovering = false;
     resetBox.hidden = true;
     A.toast("Password updated ✓");
@@ -67,38 +125,259 @@
   });
 
   document.getElementById("gateSignIn").addEventListener("click", () =>
-    A.requireAuth({ type: "route", href: "account.html" + (location.hash || "#profile") })
+    A.requireAuth({
+      type: "route",
+      href: "account.html" + (location.hash || "#profile"),
+    }),
   );
 
   // ---- router -----------------------------------------------------------------
-  const TABS = ["profile", "saved", "history", "settings"];
+  const TABS = ["profile", "ticket", "saved", "history", "settings"];
   function activeTab() {
     const h = (location.hash || "#profile").slice(1);
     return TABS.includes(h) ? h : h === "reset" ? "reset" : "profile";
   }
 
   window.addEventListener("hashchange", render);
-  A.onChange((u) => { user = u; render(); });
+  A.onChange((u) => {
+    user = u;
+    render();
+  });
 
   function render() {
+    if (tkTimer) {
+      clearInterval(tkTimer);
+      tkTimer = null;
+    }
     if (recovering || activeTab() === "reset") {
-      gate.hidden = true; acct.hidden = true; resetBox.hidden = false; return;
+      gate.hidden = true;
+      acct.hidden = true;
+      resetBox.hidden = false;
+      return;
     }
     resetBox.hidden = true;
-    if (!user) { gate.hidden = false; acct.hidden = true; return; }
-    gate.hidden = true; acct.hidden = false;
+    if (!user) {
+      gate.hidden = false;
+      acct.hidden = true;
+      return;
+    }
+    gate.hidden = true;
+    acct.hidden = false;
 
     const tab = activeTab();
-    document.querySelectorAll("#acctTabs a").forEach((a) =>
-      a.classList.toggle("active", a.dataset.tab === tab)
+    document
+      .querySelectorAll("#acctTabs a")
+      .forEach((a) => a.classList.toggle("active", a.dataset.tab === tab));
+    TABS.forEach((t) => {
+      document.getElementById("pane-" + t).hidden = t !== tab;
+    });
+    ({
+      profile: renderProfile,
+      ticket: renderTicket,
+      saved: renderSaved,
+      history: renderHistory,
+      settings: renderSettings,
+    })[tab]();
+  }
+
+  // ============================ TICKET (feature 004, US2) ========================
+  const DEGREE_LABEL = {
+    highschool: "High school",
+    bachelor: "Bachelor",
+    master: "Master's",
+    phd: "PhD",
+  };
+
+  async function renderTicket() {
+    if (tkTimer) {
+      clearInterval(tkTimer);
+      tkTimer = null;
+    }
+    const pane = document.getElementById("pane-ticket");
+    pane.innerHTML = `<div class="acct-loading">Loading your ticket…</div>`;
+    // returning from a +1 space purchase: the webhook records it async, so re-poll briefly
+    let spacePending = false;
+    try {
+      if (sessionStorage.getItem("beacon.spacePending") === "1") {
+        spacePending = true;
+        sessionStorage.removeItem("beacon.spacePending");
+      }
+    } catch (e) {}
+    let tickets = [],
+      spaceCount = 0;
+    try {
+      const t = await db
+        .from("tickets")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("booked_at", { ascending: false });
+      if (t.error) throw t.error;
+      tickets = t.data || [];
+      const sp = await db
+        .from("space_purchases")
+        .select("*", { count: "exact", head: true })
+        .eq("user_id", user.id);
+      spaceCount = sp.count || 0;
+    } catch (e) {
+      console.error(e);
+      pane.innerHTML = `<div class="acct-loading">We couldn't load your ticket — please refresh. (If this keeps happening, the database may not be set up yet.)</div>`;
+      return;
+    }
+    const capacity = 1 + spaceCount;
+    const activeCount = tickets.filter(ticketActive).length;
+    const spacePrice =
+      "$" + Math.round((window.SPACE_PRICE_CENTS || 9900) / 100);
+    const spaceRow = `<div class="tk-space-row" id="tkSpaceRow">
+        <span>Ticket space: <b>${activeCount}</b> in use of <b>${capacity}</b></span>
+        <button type="button" class="tk-space-buy" id="tkSpaceBuy">Add ticket space (+${spacePrice})</button>
+      </div>`;
+
+    if (!tickets.length) {
+      pane.innerHTML =
+        spaceRow +
+        `<div class="acct-empty"><div class="big">🎫</div><h3>No ticket yet</h3>` +
+        `<p>Find a scholarship you love and book your ticket to take the first step toward your exam and interview.</p>` +
+        `<a class="apply-btn" href="index.html#browse">Browse scholarships →</a></div>`;
+      wireSpaceBuy();
+      repollAfterSpace(spacePending);
+      return;
+    }
+    pane.innerHTML =
+      spaceRow +
+      `<div class="tk-list">${tickets.map(ticketHtml).join("")}</div>`;
+    wireSpaceBuy();
+    startCountdowns();
+    repollAfterSpace(spacePending);
+  }
+
+  // re-render the pane a couple of times after returning from a +1 purchase so the
+  // capacity catches up once the webhook has recorded the space_purchases row
+  function repollAfterSpace(pending) {
+    if (!pending) return;
+    [2500, 6000].forEach((ms) =>
+      setTimeout(() => {
+        if (activeTab() === "ticket") renderTicket();
+      }, ms),
     );
-    TABS.forEach((t) => { document.getElementById("pane-" + t).hidden = t !== tab; });
-    ({ profile: renderProfile, saved: renderSaved, history: renderHistory, settings: renderSettings })[tab]();
+  }
+
+  // +1 ticket space (US3/T025): redirect to the space-checkout Stripe session
+  function wireSpaceBuy() {
+    const b = document.getElementById("tkSpaceBuy");
+    if (!b) return;
+    b.addEventListener("click", async () => {
+      if (b.disabled) return;
+      const label = b.textContent;
+      b.disabled = true;
+      b.textContent = "Starting checkout…";
+      try {
+        const sess = await db.auth.getSession();
+        const token =
+          sess &&
+          sess.data &&
+          sess.data.session &&
+          sess.data.session.access_token;
+        if (!token) throw new Error("no session");
+        const res = await fetch(window.FUNCTIONS_BASE + "/space-checkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({ origin: location.href }),
+        });
+        const out = await res.json().catch(() => ({}));
+        if (out.url) {
+          try {
+            sessionStorage.setItem("beacon.spacePending", "1");
+          } catch (e) {}
+          location.href = out.url;
+          return;
+        }
+        throw new Error(out.error || "no checkout url");
+      } catch (e) {
+        console.error(e);
+        A.toast(
+          "Couldn't start checkout for the extra space — please try again.",
+        );
+        b.disabled = false;
+        b.textContent = label;
+      }
+    });
+  }
+
+  function ticketHtml(t) {
+    const sch = byId.get(String(t.scholarship_id));
+    const title = t.scholarship_title || (sch && sch.title) || "Scholarship";
+    const inst = t.institution || (sch && sch.org) || "";
+    const field = (v) => (v && String(v).trim() ? esc(v) : "—");
+    const ends = new Date(t.cooldown_end).getTime();
+    if (ticketActive(t)) {
+      return `<div class="ticket-card active">
+          <div class="tk-title">${esc(title)}</div>
+          <div class="tk-inst">${esc(inst)}</div>
+          <div class="tk-countdown" data-ends="${ends}"></div>
+          <div class="tk-locked">Your ticket unlocks when the 3-day cooldown ends — your unique ticket ID and details appear here.</div>
+        </div>`;
+    }
+    const deg = DEGREE_LABEL[t.reveal_degree] || t.reveal_degree || "—";
+    return `<div class="ticket-reveal">
+        <div class="tk-stamp">Ticket confirmed</div>
+        <div class="tk-code">${esc(t.ticket_code)}</div>
+        <div class="tk-fields">
+          <div class="tk-field"><span>Name</span><b>${field(t.reveal_full_name)}</b></div>
+          <div class="tk-field"><span>Scholarship</span><b>${esc(title)}</b></div>
+          <div class="tk-field"><span>Institution</span><b>${field(inst)}</b></div>
+          <div class="tk-field"><span>Country</span><b>${field(t.reveal_country)}</b></div>
+          <div class="tk-field"><span>Nationality</span><b>${field(t.reveal_nationality)}</b></div>
+          <div class="tk-field"><span>Highest degree</span><b>${esc(deg)}</b></div>
+          <div class="tk-field"><span>Field of interest</span><b>${field(t.reveal_field_of_interest)}</b></div>
+          <div class="tk-field"><span>Booked</span><b>${esc(fmtDate(t.booked_at))}</b></div>
+        </div>
+      </div>`;
+  }
+
+  function startCountdowns() {
+    const els = Array.prototype.slice.call(
+      document.querySelectorAll(".tk-countdown[data-ends]"),
+    );
+    if (!els.length) return;
+    function unit(v, l) {
+      return `<div class="tk-unit"><b>${String(v).padStart(2, "0")}</b><span>${l}</span></div>`;
+    }
+    function tick() {
+      let expired = false;
+      els.forEach((el) => {
+        const ms = parseInt(el.dataset.ends, 10) - Date.now();
+        if (ms <= 0) {
+          expired = true;
+          el.innerHTML = `<div class="tk-locked">Revealing…</div>`;
+          return;
+        }
+        const s = Math.floor(ms / 1000);
+        el.innerHTML =
+          unit(Math.floor(s / 86400), "days") +
+          unit(Math.floor((s % 86400) / 3600), "hrs") +
+          unit(Math.floor((s % 3600) / 60), "min") +
+          unit(s % 60, "sec");
+      });
+      if (expired) {
+        clearInterval(tkTimer);
+        tkTimer = null;
+        if (activeTab() === "ticket") renderTicket();
+      }
+    }
+    tick();
+    tkTimer = setInterval(tick, 1000);
   }
 
   // ============================ PROFILE (FR-012..018) ============================
   async function loadProfile() {
-    const { data, error } = await db.from("profiles").select("*").eq("user_id", user.id).maybeSingle();
+    const { data, error } = await db
+      .from("profiles")
+      .select("*")
+      .eq("user_id", user.id)
+      .maybeSingle();
     if (error) throw error;
     profile = data; // null until first save (lazy create)
     return data;
@@ -110,7 +389,11 @@
     let langs = [];
     try {
       await loadProfile();
-      const r = await db.from("profile_languages").select("*").eq("user_id", user.id).order("created_at");
+      const r = await db
+        .from("profile_languages")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at");
       if (r.error) throw r.error;
       langs = r.data || [];
     } catch (e) {
@@ -122,9 +405,10 @@
     const meta = user.user_metadata || {};
     const p = profile || {};
     const countries = [...new Set(catalogue.map((d) => d.country))].sort();
-    const val = (k, fallback) => esc(p[k] != null ? p[k] : (fallback || ""));
+    const val = (k, fallback) => esc(p[k] != null ? p[k] : fallback || "");
 
     pane.innerHTML = `
+      <p class="acct-userid">Your unique Beacon ID: <code>${esc(user.id)}</code></p>
       <form id="profileForm" class="acct-form" novalidate>
         <div class="acct-grid">
           <label>Full name *
@@ -132,6 +416,12 @@
           </label>
           <label>Phone
             <input name="phone" value="${val("phone")}" placeholder="+20 100 000 0000" />
+          </label>
+          <label>First name
+            <input name="first_name" value="${val("first_name")}" placeholder="First name" />
+          </label>
+          <label>Last name
+            <input name="last_name" value="${val("last_name")}" placeholder="Last name" />
           </label>
           <label>Address
             <input name="address" value="${val("address")}" placeholder="Street address" />
@@ -145,10 +435,19 @@
           <label>Nationality
             <input name="nationality" list="countryList" value="${val("nationality")}" placeholder="Your nationality" />
           </label>
+          <label>Second nationality
+            <input name="second_nationality" list="countryList" value="${val("second_nationality")}" placeholder="If you have one" />
+          </label>
           <label>Highest degree
             <select name="degree">
               ${DEGREES.map(([v, l]) => `<option value="${v}" ${p.degree === v ? "selected" : ""}>${l}</option>`).join("")}
             </select>
+          </label>
+          <label>GPA
+            <input name="gpa" value="${val("gpa")}" placeholder="e.g. 3.8 / 4.0" />
+          </label>
+          <label>Field of interest
+            <input name="field_of_interest" value="${val("field_of_interest")}" placeholder="e.g. Computer Science" />
           </label>
         </div>
         <datalist id="countryList">${countries.map((c) => `<option value="${esc(c)}">`).join("")}</datalist>
@@ -199,43 +498,80 @@
     try {
       const draft = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || "null");
       if (draft) {
-        Object.entries(draft).forEach(([k, v]) => { if (form[k] != null) form[k].value = v; });
+        Object.entries(draft).forEach(([k, v]) => {
+          if (form[k] != null) form[k].value = v;
+        });
         A.toast("We restored what you were typing earlier.");
       }
     } catch (e) {}
+    const PROFILE_FIELDS = [
+      "full_name",
+      "phone",
+      "first_name",
+      "last_name",
+      "address",
+      "city",
+      "country",
+      "nationality",
+      "second_nationality",
+      "degree",
+      "gpa",
+      "field_of_interest",
+    ];
     form.addEventListener("input", () => {
       const d = {};
-      ["full_name", "phone", "address", "city", "country", "nationality", "degree"].forEach((k) => (d[k] = form[k].value));
-      try { sessionStorage.setItem(DRAFT_KEY, JSON.stringify(d)); } catch (e) {}
+      PROFILE_FIELDS.forEach((k) => (d[k] = form[k].value));
+      try {
+        sessionStorage.setItem(DRAFT_KEY, JSON.stringify(d));
+      } catch (e) {}
     });
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const row = { user_id: user.id };
-      ["full_name", "phone", "address", "city", "country", "nationality", "degree"].forEach((k) => {
+      PROFILE_FIELDS.forEach((k) => {
         row[k] = form[k].value.trim() || null;
       });
-      if (!row.full_name) { A.toast("Please add your name — it's the only required field."); return; }
+      if (!row.full_name) {
+        A.toast("Please add your name — it's the only required field.");
+        return;
+      }
       if (row.phone && !/^[+0-9][0-9 ()-]{6,19}$/.test(row.phone)) {
-        A.toast("That phone number doesn't look right — digits, spaces and + only."); return;
+        A.toast(
+          "That phone number doesn't look right — digits, spaces and + only.",
+        );
+        return;
       }
       const { error } = await db.from("profiles").upsert(row);
-      if (error) { console.error(error); A.toast("Couldn't save your profile — please try again."); return; }
-      try { sessionStorage.removeItem(DRAFT_KEY); } catch (err) {}
+      if (error) {
+        console.error(error);
+        A.toast("Couldn't save your profile — please try again.");
+        return;
+      }
+      try {
+        sessionStorage.removeItem(DRAFT_KEY);
+      } catch (err) {}
       profile = Object.assign(profile || {}, row);
       bumpProfileRev();
       A.toast("Profile saved ✓");
     });
 
     renderPhoto(p.photo_path, meta);
-    document.getElementById("photoInput").addEventListener("change", onPhotoUpload);
+    document
+      .getElementById("photoInput")
+      .addEventListener("change", onPhotoUpload);
     renderCertList();
-    document.getElementById("certInput").addEventListener("change", onCertUpload);
+    document
+      .getElementById("certInput")
+      .addEventListener("change", onCertUpload);
     renderLangList(langs);
 
     const langForm = document.getElementById("langForm");
     langForm.cert.addEventListener("change", () => {
-      document.getElementById("langFileName").textContent = langForm.cert.files[0] ? langForm.cert.files[0].name : "";
+      document.getElementById("langFileName").textContent = langForm.cert
+        .files[0]
+        ? langForm.cert.files[0].name
+        : "";
     });
     langForm.addEventListener("submit", onLangAdd);
   }
@@ -243,11 +579,19 @@
   function validateFile(file, types, max, what) {
     if (!file) return null;
     if (!types[file.type]) {
-      A.toast(`That file type isn't supported for ${what}. Allowed: ${Object.values(types).map((t) => t.toUpperCase()).join(", ")}.`);
+      A.toast(
+        `That file type isn't supported for ${what}. Allowed: ${Object.values(
+          types,
+        )
+          .map((t) => t.toUpperCase())
+          .join(", ")}.`,
+      );
       return null;
     }
     if (file.size > max) {
-      A.toast(`That file is too big for ${what} — the limit is ${Math.round(max / 1048576)} MB.`);
+      A.toast(
+        `That file is too big for ${what} — the limit is ${Math.round(max / 1048576)} MB.`,
+      );
       return null;
     }
     return file;
@@ -259,9 +603,15 @@
     if (!box) return;
     let url = null;
     if (path) {
-      const { data } = await db.storage.from(BUCKET).createSignedUrl(path, 60 * 60);
+      const { data } = await db.storage
+        .from(BUCKET)
+        .createSignedUrl(path, 60 * 60);
       url = data && data.signedUrl;
-      if (url) { try { localStorage.setItem("beacon.avatarUrl", url); } catch (e) {} }
+      if (url) {
+        try {
+          localStorage.setItem("beacon.avatarUrl", url);
+        } catch (e) {}
+      }
     } else if (meta && (meta.avatar_url || meta.picture)) {
       url = meta.avatar_url || meta.picture;
     }
@@ -271,14 +621,31 @@
   }
 
   async function onPhotoUpload(e) {
-    const file = validateFile(e.target.files[0], PHOTO_TYPES, PHOTO_MAX, "photos");
+    const file = validateFile(
+      e.target.files[0],
+      PHOTO_TYPES,
+      PHOTO_MAX,
+      "photos",
+    );
     e.target.value = "";
     if (!file) return;
     const path = `${user.id}/photo/photo.${PHOTO_TYPES[file.type]}`;
-    const up = await db.storage.from(BUCKET).upload(path, file, { upsert: true, contentType: file.type });
-    if (up.error) { console.error(up.error); A.toast("Upload didn't work — please try again."); return; }
-    const { error } = await db.from("profiles").upsert({ user_id: user.id, photo_path: path });
-    if (error) { console.error(error); A.toast("Upload saved but the profile didn't update — try again."); return; }
+    const up = await db.storage
+      .from(BUCKET)
+      .upload(path, file, { upsert: true, contentType: file.type });
+    if (up.error) {
+      console.error(up.error);
+      A.toast("Upload didn't work — please try again.");
+      return;
+    }
+    const { error } = await db
+      .from("profiles")
+      .upsert({ user_id: user.id, photo_path: path });
+    if (error) {
+      console.error(error);
+      A.toast("Upload saved but the profile didn't update — try again.");
+      return;
+    }
     profile = Object.assign(profile || {}, { photo_path: path });
     await renderPhoto(path, null);
     bumpProfileRev();
@@ -289,45 +656,81 @@
   async function renderCertList() {
     const ul = document.getElementById("certList");
     if (!ul) return;
-    const { data, error } = await db.from("certificates").select("*").eq("user_id", user.id).order("created_at", { ascending: false });
-    if (error) { ul.innerHTML = `<li class="acct-loading">Couldn't load certificates.</li>`; return; }
-    if (!data.length) { ul.innerHTML = `<li class="file-empty">No certificates uploaded yet.</li>`; return; }
-    ul.innerHTML = data.map((c) => `
+    const { data, error } = await db
+      .from("certificates")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false });
+    if (error) {
+      ul.innerHTML = `<li class="acct-loading">Couldn't load certificates.</li>`;
+      return;
+    }
+    if (!data.length) {
+      ul.innerHTML = `<li class="file-empty">No certificates uploaded yet.</li>`;
+      return;
+    }
+    ul.innerHTML = data
+      .map(
+        (c) => `
       <li data-id="${c.id}" data-path="${esc(c.file_path)}">
         <span class="file-name">${esc(c.file_name)}</span>
         <span class="file-date">${fmtDate(c.created_at)}</span>
         <button type="button" class="file-view">View</button>
         <button type="button" class="file-remove">Remove</button>
-      </li>`).join("");
+      </li>`,
+      )
+      .join("");
     ul.querySelectorAll(".file-view").forEach((b) =>
       b.addEventListener("click", async () => {
         const path = b.closest("li").dataset.path;
-        const { data: s } = await db.storage.from(BUCKET).createSignedUrl(path, 300);
+        const { data: s } = await db.storage
+          .from(BUCKET)
+          .createSignedUrl(path, 300);
         if (s && s.signedUrl) window.open(s.signedUrl, "_blank", "noopener");
-      })
+      }),
     );
     ul.querySelectorAll(".file-remove").forEach((b) =>
       b.addEventListener("click", async () => {
         const li = b.closest("li");
-        if (!confirm("Remove this certificate? The file will be deleted.")) return;
+        if (!confirm("Remove this certificate? The file will be deleted."))
+          return;
         await db.storage.from(BUCKET).remove([li.dataset.path]);
         await db.from("certificates").delete().eq("id", li.dataset.id);
         renderCertList();
-      })
+      }),
     );
   }
 
   async function onCertUpload(e) {
-    const file = validateFile(e.target.files[0], DOC_TYPES, DOC_MAX, "certificates");
+    const file = validateFile(
+      e.target.files[0],
+      DOC_TYPES,
+      DOC_MAX,
+      "certificates",
+    );
     e.target.value = "";
     if (!file) return;
     const path = `${user.id}/certificates/${uuid()}-${file.name.replace(/[^\w.-]+/g, "_")}`;
-    const up = await db.storage.from(BUCKET).upload(path, file, { contentType: file.type });
-    if (up.error) { console.error(up.error); A.toast("Upload didn't work — please try again."); return; }
+    const up = await db.storage
+      .from(BUCKET)
+      .upload(path, file, { contentType: file.type });
+    if (up.error) {
+      console.error(up.error);
+      A.toast("Upload didn't work — please try again.");
+      return;
+    }
     const { error } = await db.from("certificates").insert({
-      user_id: user.id, file_path: path, file_name: file.name, mime_type: file.type, size_bytes: file.size,
+      user_id: user.id,
+      file_path: path,
+      file_name: file.name,
+      mime_type: file.type,
+      size_bytes: file.size,
     });
-    if (error) { console.error(error); A.toast("Upload saved but couldn't be recorded — try again."); return; }
+    if (error) {
+      console.error(error);
+      A.toast("Upload saved but couldn't be recorded — try again.");
+      return;
+    }
     A.toast("Certificate uploaded ✓");
     renderCertList();
   }
@@ -336,34 +739,48 @@
   function renderLangList(langs) {
     const ul = document.getElementById("langList");
     if (!ul) return;
-    if (!langs.length) { ul.innerHTML = `<li class="file-empty">No languages added yet.</li>`; return; }
-    ul.innerHTML = langs.map((l) => `
+    if (!langs.length) {
+      ul.innerHTML = `<li class="file-empty">No languages added yet.</li>`;
+      return;
+    }
+    ul.innerHTML = langs
+      .map(
+        (l) => `
       <li data-id="${l.id}" data-path="${esc(l.certificate_path || "")}">
         <span class="file-name">${esc(l.language)}</span>
         <span class="lang-level">${esc(cefrLabel[l.cefr_level] || l.cefr_level)}</span>
         ${l.certificate_path ? `<button type="button" class="file-view">Certificate</button>` : ""}
         <button type="button" class="file-remove">Remove</button>
-      </li>`).join("");
+      </li>`,
+      )
+      .join("");
     ul.querySelectorAll(".file-view").forEach((b) =>
       b.addEventListener("click", async () => {
         const path = b.closest("li").dataset.path;
-        const { data: s } = await db.storage.from(BUCKET).createSignedUrl(path, 300);
+        const { data: s } = await db.storage
+          .from(BUCKET)
+          .createSignedUrl(path, 300);
         if (s && s.signedUrl) window.open(s.signedUrl, "_blank", "noopener");
-      })
+      }),
     );
     ul.querySelectorAll(".file-remove").forEach((b) =>
       b.addEventListener("click", async () => {
         const li = b.closest("li");
-        if (li.dataset.path) await db.storage.from(BUCKET).remove([li.dataset.path]);
+        if (li.dataset.path)
+          await db.storage.from(BUCKET).remove([li.dataset.path]);
         await db.from("profile_languages").delete().eq("id", li.dataset.id);
         bumpProfileRev();
         refreshLangs();
-      })
+      }),
     );
   }
 
   async function refreshLangs() {
-    const { data } = await db.from("profile_languages").select("*").eq("user_id", user.id).order("created_at");
+    const { data } = await db
+      .from("profile_languages")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at");
     renderLangList(data || []);
   }
 
@@ -371,21 +788,39 @@
     e.preventDefault();
     const f = e.target;
     const language = f.language.value.trim();
-    if (!language) { A.toast("Which language? Type its name first."); return; }
+    if (!language) {
+      A.toast("Which language? Type its name first.");
+      return;
+    }
     let certPath = null;
-    const file = f.cert.files[0] ? validateFile(f.cert.files[0], DOC_TYPES, DOC_MAX, "certificates") : null;
+    const file = f.cert.files[0]
+      ? validateFile(f.cert.files[0], DOC_TYPES, DOC_MAX, "certificates")
+      : null;
     if (f.cert.files[0] && !file) return; // invalid file already toasted
     if (file) {
       certPath = `${user.id}/certificates/lang-${uuid()}-${file.name.replace(/[^\w.-]+/g, "_")}`;
-      const up = await db.storage.from(BUCKET).upload(certPath, file, { contentType: file.type });
-      if (up.error) { console.error(up.error); A.toast("Certificate upload didn't work — please try again."); return; }
+      const up = await db.storage
+        .from(BUCKET)
+        .upload(certPath, file, { contentType: file.type });
+      if (up.error) {
+        console.error(up.error);
+        A.toast("Certificate upload didn't work — please try again.");
+        return;
+      }
     }
     const { error } = await db.from("profile_languages").insert({
-      user_id: user.id, language, cefr_level: f.cefr_level.value, certificate_path: certPath,
+      user_id: user.id,
+      language,
+      cefr_level: f.cefr_level.value,
+      certificate_path: certPath,
     });
     if (error) {
       console.error(error);
-      A.toast(/duplicate|unique/i.test(error.message || "") ? "You already added that language." : "Couldn't add the language — try again.");
+      A.toast(
+        /duplicate|unique/i.test(error.message || "")
+          ? "You already added that language."
+          : "Couldn't add the language — try again.",
+      );
       return;
     }
     f.reset();
@@ -399,20 +834,31 @@
   async function renderSaved() {
     const pane = document.getElementById("pane-saved");
     pane.innerHTML = `<div class="acct-loading">Loading your saved list…</div>`;
-    const { data, error } = await db.from("saved_scholarships").select("*").eq("user_id", user.id).order("saved_at", { ascending: false });
-    if (error) { pane.innerHTML = `<div class="acct-loading">Couldn't load your saved list — please refresh.</div>`; return; }
+    const { data, error } = await db
+      .from("saved_scholarships")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("saved_at", { ascending: false });
+    if (error) {
+      pane.innerHTML = `<div class="acct-loading">Couldn't load your saved list — please refresh.</div>`;
+      return;
+    }
     if (!data.length) {
       pane.innerHTML = `<div class="acct-empty"><div class="big">🌱</div><h3>Nothing saved yet</h3>
         <p>Tap the heart on any scholarship to keep it here.</p>
         <a class="apply-btn" href="index.html#browse">Browse scholarships</a></div>`;
       return;
     }
-    pane.innerHTML = `<ul class="saved-list">` + data.map((row) => {
-      const d = byId.get(String(row.scholarship_id));
-      if (!d) return `<li class="saved-item gone" data-id="${esc(row.scholarship_id)}">
+    pane.innerHTML =
+      `<ul class="saved-list">` +
+      data
+        .map((row) => {
+          const d = byId.get(String(row.scholarship_id));
+          if (!d)
+            return `<li class="saved-item gone" data-id="${esc(row.scholarship_id)}">
           <span class="file-name">This scholarship is no longer listed.</span>
           <button type="button" class="file-remove">Remove</button></li>`;
-      return `<li class="saved-item" data-id="${esc(String(d.id))}">
+          return `<li class="saved-item" data-id="${esc(String(d.id))}">
           <span class="flag">${d.flag || "🎓"}</span>
           <a class="saved-info" href="scholarship.html?id=${encodeURIComponent(d.id)}">
             <b>${esc(d.title)}</b><span>${esc(d.org)} — ${esc(d.country)}</span>
@@ -420,14 +866,24 @@
           <span class="file-date">saved ${fmtDate(row.saved_at)}</span>
           <button type="button" class="file-remove">Unsave</button>
         </li>`;
-    }).join("") + `</ul>`;
+        })
+        .join("") +
+      `</ul>`;
     pane.querySelectorAll(".file-remove").forEach((b) =>
       b.addEventListener("click", async () => {
         const id = b.closest("li").dataset.id;
-        await db.from("saved_scholarships").delete().eq("user_id", user.id).eq("scholarship_id", id);
-        document.dispatchEvent(new CustomEvent("beacon:saved-changed", { detail: { id, saved: false } }));
+        await db
+          .from("saved_scholarships")
+          .delete()
+          .eq("user_id", user.id)
+          .eq("scholarship_id", id);
+        document.dispatchEvent(
+          new CustomEvent("beacon:saved-changed", {
+            detail: { id, saved: false },
+          }),
+        );
         renderSaved();
-      })
+      }),
     );
   }
 
@@ -436,23 +892,39 @@
     const pane = document.getElementById("pane-history");
     pane.innerHTML = `<div class="acct-loading">Loading your history…</div>`;
     const [views, searches] = await Promise.all([
-      db.from("view_history").select("*").eq("user_id", user.id).order("viewed_at", { ascending: false }).limit(50),
-      db.from("search_history").select("*").eq("user_id", user.id).order("searched_at", { ascending: false }).limit(50),
+      db
+        .from("view_history")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("viewed_at", { ascending: false })
+        .limit(50),
+      db
+        .from("search_history")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("searched_at", { ascending: false })
+        .limit(50),
     ]);
     if (views.error || searches.error) {
       pane.innerHTML = `<div class="acct-loading">Couldn't load your history — please refresh.</div>`;
       return;
     }
-    const vhtml = (views.data || []).map((v) => {
-      const d = byId.get(String(v.scholarship_id));
-      const title = d ? d.title : "A scholarship that's no longer listed";
-      const link = d ? `scholarship.html?id=${encodeURIComponent(d.id)}` : null;
-      return `<li>${link ? `<a href="${link}">${esc(title)}</a>` : esc(title)}<span class="file-date">${fmtDate(v.viewed_at)}</span></li>`;
-    }).join("");
-    const shtml = (searches.data || []).map((s) => {
-      const q = encodeURIComponent(s.query);
-      return `<li><a href="index.html?q=${q}#browse">“${esc(s.query)}”</a><span class="file-date">${fmtDate(s.searched_at)}</span></li>`;
-    }).join("");
+    const vhtml = (views.data || [])
+      .map((v) => {
+        const d = byId.get(String(v.scholarship_id));
+        const title = d ? d.title : "A scholarship that's no longer listed";
+        const link = d
+          ? `scholarship.html?id=${encodeURIComponent(d.id)}`
+          : null;
+        return `<li>${link ? `<a href="${link}">${esc(title)}</a>` : esc(title)}<span class="file-date">${fmtDate(v.viewed_at)}</span></li>`;
+      })
+      .join("");
+    const shtml = (searches.data || [])
+      .map((s) => {
+        const q = encodeURIComponent(s.query);
+        return `<li><a href="index.html?q=${q}#browse">“${esc(s.query)}”</a><span class="file-date">${fmtDate(s.searched_at)}</span></li>`;
+      })
+      .join("");
     pane.innerHTML = `
       <div class="acct-block">
         <div class="block-head"><h2>Viewed scholarships</h2>
@@ -464,16 +936,20 @@
           <button type="button" class="clear" id="clearSearches" ${searches.data.length ? "" : "disabled"}>Clear</button></div>
         <ul class="hist-list">${shtml || `<li class="file-empty">No searches recorded yet.</li>`}</ul>
       </div>`;
-    document.getElementById("clearViews").addEventListener("click", async () => {
-      if (!confirm("Clear your whole viewing history?")) return;
-      await db.from("view_history").delete().eq("user_id", user.id);
-      renderHistory();
-    });
-    document.getElementById("clearSearches").addEventListener("click", async () => {
-      if (!confirm("Clear your search history?")) return;
-      await db.from("search_history").delete().eq("user_id", user.id);
-      renderHistory();
-    });
+    document
+      .getElementById("clearViews")
+      .addEventListener("click", async () => {
+        if (!confirm("Clear your whole viewing history?")) return;
+        await db.from("view_history").delete().eq("user_id", user.id);
+        renderHistory();
+      });
+    document
+      .getElementById("clearSearches")
+      .addEventListener("click", async () => {
+        if (!confirm("Clear your search history?")) return;
+        await db.from("search_history").delete().eq("user_id", user.id);
+        renderHistory();
+      });
   }
 
   // ============================ SETTINGS (FR-003a/023) ============================
@@ -484,8 +960,12 @@
     try {
       const r = await db.auth.getUserIdentities();
       identities = (r.data && r.data.identities) || [];
-    } catch (e) { console.error(e); }
-    const linked = new Set(identities.map((i) => (i.provider === "twitter" ? "x" : i.provider)));
+    } catch (e) {
+      console.error(e);
+    }
+    const linked = new Set(
+      identities.map((i) => (i.provider === "twitter" ? "x" : i.provider)),
+    );
     const verified = !!user.email_confirmed_at;
     const hasEmailIdentity = linked.has("email");
 
@@ -503,19 +983,29 @@
           ${[...linked].map((p) => `<li class="provider-chip on">${esc(PROVIDER_NAMES[p] || p)} ✓</li>`).join("")}
         </ul>
         <div class="provider-connect">
-          ${CONNECTABLE.filter((p) => !linked.has(p)).map((p) =>
-            `<button type="button" class="provider-link" data-provider="${p}">Connect ${PROVIDER_NAMES[p]}</button>`
-          ).join("") || `<span class="acct-hint">All providers connected.</span>`}
+          ${
+            CONNECTABLE.filter((p) => !linked.has(p))
+              .map(
+                (p) =>
+                  `<button type="button" class="provider-link" data-provider="${p}">Connect ${PROVIDER_NAMES[p]}</button>`,
+              )
+              .join("") ||
+            `<span class="acct-hint">All providers connected.</span>`
+          }
         </div>
       </div>
-      ${hasEmailIdentity ? `
+      ${
+        hasEmailIdentity
+          ? `
       <div class="acct-block">
         <h2>Change password</h2>
         <form id="pwForm" class="acct-form inline" novalidate>
           <input type="password" name="password" autocomplete="new-password" minlength="8" required placeholder="New password (8+ characters)" />
           <button class="apply-btn" type="submit">Update password</button>
         </form>
-      </div>` : ""}
+      </div>`
+          : ""
+      }
       <div class="acct-block danger">
         <h2>Delete account</h2>
         <p class="acct-hint">Removes your profile, saved list, history and every uploaded file. This cannot be undone.</p>
@@ -523,61 +1013,101 @@
       </div>`;
 
     const resend = document.getElementById("resendVerify");
-    if (resend) resend.addEventListener("click", async () => {
-      const { error } = await db.auth.signInWithOtp({ email: user.email, options: { shouldCreateUser: false } });
-      A.toast(error ? "Couldn't send the link — try again shortly." : "Verification link sent — check your inbox.");
-    });
+    if (resend)
+      resend.addEventListener("click", async () => {
+        const { error } = await db.auth.signInWithOtp({
+          email: user.email,
+          options: { shouldCreateUser: false },
+        });
+        A.toast(
+          error
+            ? "Couldn't send the link — try again shortly."
+            : "Verification link sent — check your inbox.",
+        );
+      });
 
     pane.querySelectorAll(".provider-link").forEach((b) =>
       b.addEventListener("click", async () => {
         try {
           const { error } = await db.auth.linkIdentity({
             provider: b.dataset.provider,
-            options: { redirectTo: location.origin + location.pathname + "#settings" },
+            options: {
+              redirectTo: location.origin + location.pathname + "#settings",
+            },
           });
           if (error) throw error;
         } catch (err) {
           console.error(err);
-          A.toast("Couldn't start connecting that account — make sure manual linking is enabled, then try again.");
+          A.toast(
+            "Couldn't start connecting that account — make sure manual linking is enabled, then try again.",
+          );
         }
-      })
+      }),
     );
 
     const pwForm = document.getElementById("pwForm");
-    if (pwForm) pwForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const pw = pwForm.password.value;
-      if (pw.length < 8) { A.toast("Password needs at least 8 characters."); return; }
-      const { error } = await db.auth.updateUser({ password: pw });
-      A.toast(error ? "Couldn't update the password — try again." : "Password updated ✓");
-      if (!error) pwForm.reset();
-    });
+    if (pwForm)
+      pwForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const pw = pwForm.password.value;
+        if (pw.length < 8) {
+          A.toast("Password needs at least 8 characters.");
+          return;
+        }
+        const { error } = await db.auth.updateUser({ password: pw });
+        A.toast(
+          error
+            ? "Couldn't update the password — try again."
+            : "Password updated ✓",
+        );
+        if (!error) pwForm.reset();
+      });
 
-    document.getElementById("deleteAccount").addEventListener("click", deleteAccount);
+    document
+      .getElementById("deleteAccount")
+      .addEventListener("click", deleteAccount);
   }
 
   // contract F9: delete owned rows + files, then the delete_account Edge Function
   // removes the auth user (service role key lives only server-side).
   async function deleteAccount() {
-    if (!confirm("Delete your account and everything in it? This cannot be undone.")) return;
+    if (
+      !confirm(
+        "Delete your account and everything in it? This cannot be undone.",
+      )
+    )
+      return;
     if (!confirm("Last check — really delete your account?")) return;
     try {
       // storage: list and remove all owned objects
       for (const folder of ["photo", "certificates"]) {
-        const { data: files } = await db.storage.from(BUCKET).list(`${user.id}/${folder}`, { limit: 1000 });
+        const { data: files } = await db.storage
+          .from(BUCKET)
+          .list(`${user.id}/${folder}`, { limit: 1000 });
         if (files && files.length) {
-          await db.storage.from(BUCKET).remove(files.map((f) => `${user.id}/${folder}/${f.name}`));
+          await db.storage
+            .from(BUCKET)
+            .remove(files.map((f) => `${user.id}/${folder}/${f.name}`));
         }
       }
       // rows (auth-user cascade would cover these, but we clean up regardless)
-      for (const t of ["profile_languages", "certificates", "saved_scholarships", "view_history", "search_history", "profiles"]) {
+      for (const t of [
+        "profile_languages",
+        "certificates",
+        "saved_scholarships",
+        "view_history",
+        "search_history",
+        "profiles",
+      ]) {
         await db.from(t).delete().eq("user_id", user.id);
       }
       // final step: remove the auth user itself
       const { error } = await db.functions.invoke("delete_account");
       if (error) {
         console.error(error);
-        A.toast("Your data was removed, but the final account deletion couldn't complete — please contact support.");
+        A.toast(
+          "Your data was removed, but the final account deletion couldn't complete — please contact support.",
+        );
       } else {
         A.toast("Your account has been deleted. Take care 👋");
       }
@@ -585,7 +1115,9 @@
       console.error(e);
       A.toast("Something went wrong during deletion — please try again.");
     } finally {
-      try { sessionStorage.removeItem(DRAFT_KEY); } catch (e) {}
+      try {
+        sessionStorage.removeItem(DRAFT_KEY);
+      } catch (e) {}
       await A.signOut();
       location.href = "index.html";
     }

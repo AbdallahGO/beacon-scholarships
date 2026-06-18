@@ -1,5 +1,5 @@
-# build_details.ps1 — turn raw extracted detail JSON into browser-loadable per-id JS files.
-# Sanitizes section HTML per contracts/detail-content.schema.md §3 and enforces the
+# build_details.ps1 - turn raw extracted detail JSON into browser-loadable per-id JS files.
+# Sanitizes section HTML per contracts/detail-content.schema.md section 3 and enforces the
 # FR-005 gate: no for9a.com href may survive into the generated files.
 #
 # Reads : ScholarShips_Data/details/*.json, ../scholarships.js (id validation)
@@ -49,6 +49,38 @@ function Sanitize-Body([string]$html) {
     return $s.Trim()
 }
 
+# ---- US7 / FR-027-028: scrub visible "For9a" (English) and the Arabic brand word
+# "Forsa" from rendered section text/headers/titles/org_about. Arabic glyphs are
+# built from hex code points at runtime so this SOURCE file stays pure ASCII (no
+# UTF-8 BOM needed under PS 5.1). RTL stays intact because we delete only the brand
+# token (with any attached prefix/article) and tidy whitespace.
+$brandWord   = -join [char[]](0x0641,0x0631,0x0635,0x0629)            # Forsa (the brand word)
+$brandPrep   = -join [char[]](0x0639,0x0644,0x0649)                   # "on"  (precedes the brand)
+$arArticle   = -join [char[]](0x0627,0x0644)                          # "the" article
+$arPrefixes  = -join [char[]](0x0648,0x0641,0x0628,0x0643,0x0644)     # conj/prep prefixes w f b k l
+$arPunct     = -join [char[]](0x060C,0x061B)                          # Arabic comma + semicolon
+$script:reBrandPrep = $brandPrep + '\s+' + $brandWord                 # "on Forsa"
+$script:reBrandWord = '[' + $arPrefixes + ']*(?:' + $arArticle + ')?' + $brandWord
+$script:rePunctFix  = '\s+([.,;:!?' + $arPunct + '])'
+$script:reBrandLeft = '(?i)for9a|' + $brandWord                       # residual-brand detector
+
+function Remove-Brand([string]$t) {
+    if ([string]::IsNullOrEmpty($t)) { return $t }
+    $s = $t
+    # English: drop a leading connector + brand first ("on/via For9a"), then any token
+    $s = [regex]::Replace($s, '(?i)\b(?:on|via|at|through|from|with)\s+for9a\b', '')
+    $s = [regex]::Replace($s, '(?i)for9a', '')
+    # Arabic: drop "<prep> <word>" ("on Forsa") first, then the word with any attached prefix/article
+    $s = [regex]::Replace($s, $script:reBrandPrep, '')
+    $s = [regex]::Replace($s, $script:reBrandWord, '')
+    # tidy: strip any inline/block tags left empty, collapse spaces, fix space-before-punct
+    $s = [regex]::Replace($s, '(?is)<(strong|em|b|i|span|a)\b[^>]*>\s*</\1>', '')
+    $s = [regex]::Replace($s, '(?is)<(p|li|h[1-4]|blockquote)\b[^>]*>\s*</\1>', '')
+    $s = [regex]::Replace($s, '[ \t]{2,}', ' ')
+    $s = [regex]::Replace($s, $script:rePunctFix, '$1')
+    return $s.Trim()
+}
+
 $rawFiles = @(Get-ChildItem -Path $rawDir -Filter '*.json' | Sort-Object { [int]$_.BaseName })
 if ($rawFiles.Count -eq 0) { throw "No raw detail files in $rawDir - run extract_details.ps1 first" }
 
@@ -65,12 +97,32 @@ foreach ($f in $rawFiles) {
     foreach ($langKey in @('en', 'ar')) {
         $content = $detail.$langKey
         if ($null -eq $content) { continue }
+        # US7: scrub visible brand from the displayed title
+        if ($null -ne $content.title) { $content.title = Remove-Brand ([string]$content.title) }
         foreach ($sec in @($content.sections)) {
             $sec.body = Sanitize-Body ([string]$sec.body)
             # FR-005 gate checks the URL host (for9a in a query param of another site is fine)
             if ($sec.body -match 'href="(https?:)?//[^/"]*for9a\.' -or $sec.body -match 'href="(?!https?://)') {
                 $violations += "FR-005: for9a/relative href survived sanitization in id $id ($langKey/$($sec.header))"
             }
+            # US7: scrub visible brand from rendered body + header (FR-027/028)
+            $sec.body = Remove-Brand ([string]$sec.body)
+            if ($null -ne $sec.header) { $sec.header = Remove-Brand ([string]$sec.header) }
+            # FR-027 gate: no visible brand token may survive into the generated text
+            if ($sec.body -match $script:reBrandLeft -or ([string]$sec.header) -match $script:reBrandLeft) {
+                $violations += "FR-027: visible brand token survived in id $id ($langKey/$($sec.header))"
+            }
+        }
+        if (([string]$content.title) -match $script:reBrandLeft) {
+            $violations += "FR-027: visible brand token survived in title of id $id ($langKey)"
+        }
+    }
+
+    # US7: scrub the "About the organization" blurb shown on the detail page
+    if ($null -ne $detail.org_about) {
+        $detail.org_about = Remove-Brand ([string]$detail.org_about)
+        if (([string]$detail.org_about) -match $script:reBrandLeft) {
+            $violations += "FR-027: visible brand token survived in org_about of id $id"
         }
     }
 
@@ -78,7 +130,7 @@ foreach ($f in $rawFiles) {
     $link = [string]$detail.official_link
     if (-not ($link -match '^https?://') -or $link -match 'for9a\.com') { $detail.official_link = $null }
 
-    # ConvertTo-Json (PS 5.1) leaves non-ASCII raw — escape it ourselves so the
+    # ConvertTo-Json (PS 5.1) leaves non-ASCII raw - escape it ourselves so the
     # payload is ASCII-safe regardless of how a server/browser guesses the charset
     $json = $detail | ConvertTo-Json -Depth 6 -Compress
     $json = [regex]::Replace($json, '[^\x00-\x7F]', { param($m) '\u{0:x4}' -f [int][char]$m.Value })
@@ -93,4 +145,4 @@ if ($violations.Count -gt 0) {
     $violations | ForEach-Object { Write-Host "  $_" -ForegroundColor Red }
     exit 1
 }
-Write-Host "all validations passed (no for9a hrefs, ids consistent)"
+Write-Host "all validations passed (no for9a hrefs, no visible brand tokens, ids consistent)"

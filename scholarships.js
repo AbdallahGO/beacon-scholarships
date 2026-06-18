@@ -142,7 +142,7 @@ window.SCHOLARSHIPS = [
     },
     {
         "id":  "22382",
-        "title":  "Partially Funded Scholarships for International Students in Australia from  the University of South Australia",
+        "title":  "Partially Funded Scholarships for International Students in Australia from the University of South Australia",
         "org":  "University of South Australia",
         "country":  "Australia",
         "flag":  "🇦🇺",
@@ -663,7 +663,7 @@ window.SCHOLARSHIPS = [
     {
         "id":  "28027",
         "title":  "Fully Funded Scholarship at Xi’an Jiaotong University, China",
-        "org":  "Xi’an Jiaotong University (XJTU) ",
+        "org":  "Xi’an Jiaotong University (XJTU)",
         "country":  "China",
         "flag":  "🇨🇳",
         "levels":  [
@@ -939,7 +939,7 @@ window.SCHOLARSHIPS = [
     {
         "id":  "30360",
         "title":  "Fully Funded Master\u0027s and PhD Scholarships in Germany 2026",
-        "org":  "Friedrich Ebert Foundation ",
+        "org":  "Friedrich Ebert Foundation",
         "country":  "Germany",
         "flag":  "🇩🇪",
         "levels":  [
@@ -1751,7 +1751,7 @@ window.SCHOLARSHIPS = [
     },
     {
         "id":  "16963",
-        "title":  "Nanyang Technological University Undergraduate Scholarship  in Singapore 2026",
+        "title":  "Nanyang Technological University Undergraduate Scholarship in Singapore 2026",
         "org":  "Nanyang Technological University",
         "country":  "Singapore",
         "flag":  "🇸🇬",
@@ -2149,7 +2149,7 @@ window.SCHOLARSHIPS = [
     {
         "id":  "28032",
         "title":  "Kristianstad University Partially Funded Scholarship in Sweden",
-        "org":  "Kristianstad University ",
+        "org":  "Kristianstad University",
         "country":  "Sweden",
         "flag":  "🇸🇪",
         "levels":  [
@@ -2166,7 +2166,7 @@ window.SCHOLARSHIPS = [
     {
         "id":  "31577",
         "title":  "Üsküdar University Scholarship 2026 in Turkey | Scholarships for International Students",
-        "org":  " Üsküdar University",
+        "org":  "Üsküdar University",
         "country":  "Turkey",
         "flag":  "🇹🇷",
         "levels":  [
@@ -2458,7 +2458,7 @@ window.SCHOLARSHIPS = [
     {
         "id":  "16580",
         "title":  "Fully Funded Bachelor Scholarships in the UAE at Alqasimia University",
-        "org":  "Alqasimia University ",
+        "org":  "Alqasimia University",
         "country":  "United Arab Emirates",
         "flag":  "🇦🇪",
         "levels":  [
@@ -2614,7 +2614,7 @@ window.SCHOLARSHIPS = [
     {
         "id":  "30407",
         "title":  "Master’s in Renewable and Sustainable Energy in the United Kingdom 2026",
-        "org":  "Bradford University ",
+        "org":  "Bradford University",
         "country":  "United Kingdom",
         "flag":  "🇬🇧",
         "levels":  [

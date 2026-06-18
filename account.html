@@ -36,15 +36,15 @@
   <a class="back-link" href="index.html#browse">← All scholarships</a>
 
   <!-- shown to anonymous visitors (FR-011) -->
-  <div class="acct-gate" id="acctGate" hidden>
+  <div class="acct-gate" id="acctGate" style="display: none;">
     <div class="big">🔑</div>
     <h3>Sign in to see your account</h3>
     <p>Your saved scholarships, history and profile live here once you're signed in.</p>
-    <button class="apply-btn" id="gateSignIn" type="button">Sign in or create account</button>
+    <button class="apply-btn" id="gateSignIn" type="button" >Sign in or create account</button>
   </div>
 
   <!-- password recovery (reached from the reset-link email) -->
-  <div class="acct-reset" id="acctReset" hidden>
+  <div class="acct-reset" id="acctReset" >
     <h2>Choose a new password</h2>
     <form id="resetForm" class="acct-form" novalidate>
       <label>New password
@@ -54,19 +54,21 @@
     </form>
   </div>
 
-  <div class="acct" id="acct" hidden>
+  <div class="acct" id="acct">
     <h1 class="acct-title">Your account</h1>
     <div class="acct-tabs" id="acctTabs">
       <a href="#profile" data-tab="profile">Profile</a>
+      <a href="#ticket" data-tab="ticket">Ticket</a>
       <a href="#saved" data-tab="saved">Saved</a>
       <a href="#history" data-tab="history">History</a>
       <a href="#settings" data-tab="settings">Settings</a>
     </div>
 
-    <section class="acct-pane" id="pane-profile" hidden></section>
-    <section class="acct-pane" id="pane-saved" hidden></section>
-    <section class="acct-pane" id="pane-history" hidden></section>
-    <section class="acct-pane" id="pane-settings" hidden></section>
+    <section class="acct-pane" id="pane-profile" ></section>
+    <section class="acct-pane" id="pane-ticket" ></section>
+    <section class="acct-pane" id="pane-saved" ></section>
+    <section class="acct-pane" id="pane-history" ></section>
+    <section class="acct-pane" id="pane-settings" ></section>
   </div>
 </main>
 

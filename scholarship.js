@@ -23,6 +23,31 @@ const esc = (s) =>
     "'": "&#39;",
   }[c]));
 
+// US7 / FR-027-028: light secondary sanitizer. The build scripts already scrub the
+// brand out of the generated data; this is a render-time safety net that strips any
+// residual visible "For9a" (English) or Arabic brand word "Forsa". Arabic is built
+// from code points so this source stays ASCII-clean. Removes only the brand token
+// (with any attached connector/article) plus any inline tag it leaves empty.
+const BRAND_RE = (function () {
+  const w = String.fromCharCode(0x0641, 0x0631, 0x0635, 0x0629); // Forsa (brand word)
+  const on = String.fromCharCode(0x0639, 0x0644, 0x0649); // "on"
+  const al = String.fromCharCode(0x0627, 0x0644); // "the" article
+  const pre = String.fromCharCode(0x0648, 0x0641, 0x0628, 0x0643, 0x0644); // w f b k l
+  return new RegExp(
+    "(?:on|via|at|through|from|with)\\s+for9a|for9a|" +
+      on + "\\s+" + w + "|[" + pre + "]*(?:" + al + ")?" + w,
+    "gi"
+  );
+})();
+function scrubBrand(s) {
+  if (s == null) return s;
+  return String(s)
+    .replace(BRAND_RE, "")
+    .replace(/<(strong|em|b|i|span|a)\b[^>]*>\s*<\/\1>/gi, "")
+    .replace(/[ \t]{2,}/g, " ")
+    .trim();
+}
+
 const pin = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>`;
 const clock = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`;
 
@@ -155,7 +180,7 @@ function renderSections() {
 
   // heading follows the selected language (falls back to the catalogue title)
   const h1 = document.getElementById("detailTitle");
-  h1.textContent = content.title || rec.title || "";
+  h1.textContent = scrubBrand(content.title || rec.title || "");
   if (currentLang === "ar") { h1.setAttribute("dir", "rtl"); h1.setAttribute("lang", "ar"); }
   else { h1.removeAttribute("dir"); h1.removeAttribute("lang"); }
 
@@ -171,39 +196,32 @@ function renderSections() {
   // no event handlers, no for9a links — safe to render as HTML
   body.innerHTML = (content.sections || [])
     .filter((s) => s && s.body && s.body.trim())
-    .map(
-      (s) =>
+    .map((s) => {
+      const header = scrubBrand(s.header || "");
+      return (
         `<section class="detail-section">` +
-        (s.header && s.header.trim() ? `<h2>${esc(s.header)}</h2>` : "") +
-        s.body +
+        (header.trim() ? `<h2>${esc(header)}</h2>` : "") +
+        scrubBrand(s.body) +
         `</section>`
-    )
+      );
+    })
     .join("");
 }
 
 function renderApplyArea() {
   const area = document.getElementById("applyArea");
-  let html = "";
-
-  // apply action: only an official (non-for9a) destination, else guidance (FR-004)
-  const link = detail && detail.official_link;
-  if (link && /^https?:\/\//.test(link) && !/for9a\.com/.test(link)) {
-    html +=
-      `<div class="apply-box">` +
-      `<div class="apply-text"><b>Ready to apply?</b> Applications are handled by ${esc(rec.org)} on their official site.</div>` +
-      `<a class="apply-btn" href="${esc(link)}" target="_blank" rel="noopener">Apply on official site →</a>` +
-      `</div>`;
-  } else {
-    html +=
-      `<div class="apply-box">` +
-      `<div class="apply-text"><b>How to apply:</b> Applications for this scholarship are handled directly by <b>${esc(rec.org)}</b>. ` +
-      `Visit the organization's official website or admissions pages to submit your application.</div>` +
-      `</div>`;
-  }
+  // FR-004/004a: applications are NOT handled on Beacon and there is no outbound
+  // apply link — booking a ticket (the Book Ticket area above, injected by
+  // ticket.js) is the user's single path forward. Keep guidance + about-org only.
+  let html =
+    `<div class="apply-box">` +
+    `<div class="apply-text"><b>How to move forward:</b> Applications for this scholarship aren't submitted on Beacon. ` +
+    `Book your ticket above to take the first step toward your exam and interview with <b>${esc(rec.org)}</b>.</div>` +
+    `</div>`;
 
   if (detail && detail.org_about) {
     html +=
-      `<div class="about-org"><h2>About ${esc(rec.org)}</h2><p>${esc(detail.org_about)}</p></div>`;
+      `<div class="about-org"><h2>About ${esc(scrubBrand(rec.org))}</h2><p>${esc(scrubBrand(detail.org_about))}</p></div>`;
   }
 
   area.innerHTML = html;

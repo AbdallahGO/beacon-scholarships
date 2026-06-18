@@ -1,5 +1,5 @@
 <#
-build_catalogue.ps1 — Scholarships Data Integration (feature 001)
+build_catalogue.ps1 - Scholarships Data Integration (feature 001)
 
 GENERATES `scholarships.js` at the repository root. That file is generated;
 do NOT edit it by hand. Re-run this script whenever any `*.clean.json` changes:
@@ -11,10 +11,11 @@ What it does (see specs/001-scholarships-data-integration/contracts/):
   2. Aggregates all records into one list.
   3. De-duplicates by `id` (falls back to `url` when `id` is missing).
   4. Drops expired opportunities (records whose `days` is a number <= 0).
-  5. Writes `window.SCHOLARSHIPS = [...]` to `scholarships.js` at the repo root
+  5. Scrubs visible "For9a"/Arabic-brand tokens from titles/orgs (US7, FR-027/028).
+  6. Writes `window.SCHOLARSHIPS = [...]` to `scholarships.js` at the repo root
      (UTF-8, no BOM).
 
-No Python required — pure PowerShell, native to Windows.
+No Python required - pure PowerShell, native to Windows.
 #>
 
 $ErrorActionPreference = 'Stop'
@@ -29,8 +30,38 @@ if ($files.Count -eq 0) {
     exit 1
 }
 
+# --- US7 / FR-027-028: remove visible "For9a" (English) and the Arabic brand
+# word "Forsa" from user-facing text. Arabic glyphs are built from hex code points
+# at runtime so this SOURCE file stays pure ASCII (no UTF-8 BOM needed under PS 5.1).
+$brandWord   = -join [char[]](0x0641,0x0631,0x0635,0x0629)            # Forsa (the brand word)
+$brandPrep   = -join [char[]](0x0639,0x0644,0x0649)                   # "on"  (precedes the brand)
+$arArticle   = -join [char[]](0x0627,0x0644)                          # "the" article
+$arPrefixes  = -join [char[]](0x0648,0x0641,0x0628,0x0643,0x0644)     # conj/prep prefixes w f b k l
+$arPunct     = -join [char[]](0x060C,0x061B)                          # Arabic comma + semicolon
+$reBrandPrep = $brandPrep + '\s+' + $brandWord                        # "on Forsa"
+$reBrandWord = '[' + $arPrefixes + ']*(?:' + $arArticle + ')?' + $brandWord
+$rePunctFix  = '\s+([.,;:!?' + $arPunct + '])'
+
+function Remove-Brand([string]$t) {
+    if ([string]::IsNullOrEmpty($t)) { return $t }
+    $s = $t
+    # English: drop a leading connector + brand first ("on/via For9a"), then any token
+    $s = [regex]::Replace($s, '(?i)\b(?:on|via|at|through|from|with)\s+for9a\b', '')
+    $s = [regex]::Replace($s, '(?i)for9a', '')
+    # Arabic: drop "<prep> <word>" ("on Forsa") first, then the word with any attached prefix/article
+    $s = [regex]::Replace($s, $script:reBrandPrep, '')
+    $s = [regex]::Replace($s, $script:reBrandWord, '')
+    # tidy: strip any inline/block tags left empty, collapse spaces, fix space-before-punct
+    $s = [regex]::Replace($s, '(?is)<(strong|em|b|i|span|a)\b[^>]*>\s*</\1>', '')
+    $s = [regex]::Replace($s, '(?is)<(p|li|h[1-4]|blockquote)\b[^>]*>\s*</\1>', '')
+    $s = [regex]::Replace($s, '[ \t]{2,}', ' ')
+    $s = [regex]::Replace($s, $script:rePunctFix, '$1')
+    return $s.Trim()
+}
+
 $rawCount = 0
 $expiredDropped = 0
+$brandScrubbed = 0
 $seen = New-Object 'System.Collections.Generic.HashSet[string]'
 $catalogue = New-Object System.Collections.ArrayList
 
@@ -57,6 +88,18 @@ foreach ($file in $files) {
         }
         if ($seen.Contains($key)) { continue }
         [void]$seen.Add($key)
+
+        # US7: scrub visible brand from the only user-facing free-text card fields.
+        # url/image are never shown as visible words, so they stay untouched (spec note).
+        foreach ($prop in @('title', 'org')) {
+            if ($null -ne $r.$prop) {
+                $orig = [string]$r.$prop
+                $clean = Remove-Brand $orig
+                if ($clean -ne $orig) { $brandScrubbed++ }
+                $r.$prop = $clean
+            }
+        }
+
         [void]$catalogue.Add($r)
     }
 }
@@ -78,4 +121,5 @@ $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
 Write-Host "Read $($files.Count) *.clean.json files"
 Write-Host "Raw records: $rawCount | Unique: $($catalogue.Count) | Expired dropped: $expiredDropped | Final: $($catalogue.Count)"
+Write-Host "Brand-scrubbed title/org fields: $brandScrubbed"
 Write-Host "Wrote scholarships.js (window.SCHOLARSHIPS, $($catalogue.Count) records)"

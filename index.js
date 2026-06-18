@@ -21,7 +21,42 @@ let matchOn = false; // signed-in user with a matchable profile (FR-019/020)
 
 let state = { q: "", level: "all", fund: "all", country: "all", sort: "deadline" };
 
-// re-run a search from account history: index.html?q=...#browse
+// ---- filter persistence (FR-025/026): remember filters across navigation ----
+const FILTERS_KEY = "beacon.filters";
+function saveFilters() {
+  try { localStorage.setItem(FILTERS_KEY, JSON.stringify(state)); } catch (e) { /* private mode */ }
+}
+function loadFilters() {
+  try {
+    const raw = localStorage.getItem(FILTERS_KEY);
+    if (!raw) return;
+    const f = JSON.parse(raw);
+    if (f && typeof f === "object") {
+      ["q", "level", "fund", "country", "sort"].forEach((k) => {
+        if (typeof f[k] === "string") state[k] = f[k];
+      });
+    }
+  } catch (e) { /* ignore corrupt value */ }
+}
+// reflect the (possibly restored) state into the filter controls
+function applyStateToControls() {
+  const si = document.getElementById("search");
+  if (si) si.value = state.q || "";
+  const cs = document.getElementById("countrySel");
+  if (cs) {
+    if ([...cs.options].some((o) => o.value === state.country)) cs.value = state.country;
+    else state.country = "all";
+  }
+  const ss = document.getElementById("sortSel");
+  if (ss && [...ss.options].some((o) => o.value === state.sort)) ss.value = state.sort;
+  document.querySelectorAll("#levelChips .chip").forEach((c) =>
+    c.classList.toggle("active", c.dataset.level === state.level));
+  document.querySelectorAll("#fundChips .chip").forEach((c) =>
+    c.classList.toggle("active", c.dataset.fund === state.fund));
+}
+loadFilters();
+
+// re-run a search from account history: index.html?q=...#browse (overrides saved q)
 const initialQ = new URLSearchParams(location.search).get("q");
 if (initialQ) state.q = initialQ;
 
@@ -227,6 +262,7 @@ function chipGroup(id, key) {
     document.querySelectorAll("#" + id + " .chip").forEach((c) => c.classList.remove("active"));
     e.target.classList.add("active");
     state[key] = e.target.dataset[key];
+    saveFilters();
     render();
     recordSearchSoon();
   });
@@ -236,16 +272,19 @@ chipGroup("fundChips", "fund");
 
 document.getElementById("countrySel").addEventListener("change", (e) => {
   state.country = e.target.value;
+  saveFilters();
   render();
   recordSearchSoon();
 });
 document.getElementById("sortSel").addEventListener("change", (e) => {
   state.sort = e.target.value;
+  saveFilters();
   render();
 });
 const searchInput = document.getElementById("search");
 searchInput.addEventListener("input", (e) => {
   state.q = e.target.value;
+  saveFilters();
   render();
   hideRecent();
   recordSearchSoon();
@@ -260,6 +299,7 @@ document.getElementById("clearBtn").addEventListener("click", () => {
   document.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
   document.querySelector('[data-level="all"]').classList.add("active");
   document.querySelector('[data-fund="all"]').classList.add("active");
+  saveFilters();
   render();
 });
 
@@ -316,6 +356,7 @@ searchInput.addEventListener("focus", async () => {
       e.preventDefault();
       searchInput.value = b.textContent;
       state.q = b.textContent;
+      saveFilters();
       hideRecent();
       render();
       document.getElementById("browse").scrollIntoView();
@@ -361,4 +402,5 @@ if (!dataLoaded || data.length === 0) {
   }
 }
 
+applyStateToControls();
 render();

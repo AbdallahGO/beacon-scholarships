@@ -132,7 +132,7 @@
   );
 
   // ---- router -----------------------------------------------------------------
-  const TABS = ["profile", "ticket", "saved", "history", "settings"];
+  const TABS = ["profile", "inbox", "ticket", "saved", "history", "settings"];
   function activeTab() {
     const h = (location.hash || "#profile").slice(1);
     return TABS.includes(h) ? h : h === "reset" ? "reset" : "profile";
@@ -142,6 +142,10 @@
   A.onChange((u) => {
     user = u;
     render();
+  });
+  // live-update the open Inbox pane when a message arrives/changes (inbox.js fires this)
+  document.addEventListener("beacon:inbox-changed", () => {
+    if (user && activeTab() === "inbox") renderInbox();
   });
 
   function render() {
@@ -173,11 +177,119 @@
     });
     ({
       profile: renderProfile,
+      inbox: renderInbox,
       ticket: renderTicket,
       saved: renderSaved,
       history: renderHistory,
       settings: renderSettings,
     })[tab]();
+  }
+
+  // ============================ INBOX (feature 005, US1) =========================
+  const INBOX_UI = {
+    en: { title: "Inbox", markAll: "Mark all read", empty: "No messages yet.", emptyHint: "We'll let you know here when something happens — bookings, replies and updates.", read: "Mark read", unread: "Mark unread", del: "Delete", loading: "Loading your inbox…", err: "Couldn't load your inbox — please refresh." },
+    ar: { title: "البريد", markAll: "تحديد الكل كمقروء", empty: "لا توجد رسائل بعد.", emptyHint: "سنخبرك هنا عند حدوث أي شيء — الحجوزات والردود والتحديثات.", read: "تحديد كمقروء", unread: "تحديد كغير مقروء", del: "حذف", loading: "جارٍ تحميل بريدك…", err: "تعذّر تحميل بريدك — يرجى التحديث." },
+  };
+  function inboxLang() {
+    return window.BeaconInbox && window.BeaconInbox.getLang ? window.BeaconInbox.getLang() : "en";
+  }
+  function inboxT() {
+    return INBOX_UI[inboxLang()] || INBOX_UI.en;
+  }
+
+  async function renderInbox() {
+    const pane = document.getElementById("pane-inbox");
+    const L = inboxT();
+    pane.innerHTML = `<div class="acct-loading">${esc(L.loading)}</div>`;
+    const { data, error } = await db
+      .from("notifications")
+      .select("id,type,payload,title,body,ref,is_read,created_at")
+      .order("created_at", { ascending: false })
+      .limit(50);
+    if (error) {
+      pane.innerHTML = `<div class="acct-loading">${esc(L.err)}</div>`;
+      return;
+    }
+    const rows = data || [];
+    const unread = rows.filter((r) => !r.is_read).length;
+    if (!rows.length) {
+      pane.innerHTML = `<div class="acct-empty"><div class="big">📭</div><h3>${esc(L.empty)}</h3>
+        <p>${esc(L.emptyHint)}</p></div>`;
+      return;
+    }
+    const BI = window.BeaconInbox;
+    pane.innerHTML = `
+      <div class="inbox-pane-head">
+        <h2 class="inbox-pane-title">${esc(L.title)}${unread ? ` <span class="inbox-pane-count">${unread}</span>` : ""}</h2>
+        ${unread ? `<button type="button" class="inbox-pane-markall link-btn">${esc(L.markAll)}</button>` : ""}
+      </div>
+      <ul class="inbox-list">${rows.map((r) => inboxItemHtml(r, L, BI)).join("")}</ul>`;
+
+    pane.querySelectorAll(".inbox-li").forEach((li) => {
+      const id = li.dataset.id;
+      const openRow = async () => {
+        if (li.classList.contains("is-unread")) {
+          li.classList.remove("is-unread");
+          await db.from("notifications").update({ is_read: true, read_at: new Date().toISOString() }).eq("id", id);
+          if (BI && BI.refresh) BI.refresh();
+          renderInbox();
+        }
+      };
+      const main = li.querySelector(".inbox-li-main");
+      if (main) main.addEventListener("click", openRow);
+      const tgl = li.querySelector(".inbox-toggle");
+      if (tgl)
+        tgl.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const makeRead = li.classList.contains("is-unread");
+          await db
+            .from("notifications")
+            .update(makeRead ? { is_read: true, read_at: new Date().toISOString() } : { is_read: false })
+            .eq("id", id);
+          if (BI && BI.refresh) BI.refresh();
+          renderInbox();
+        });
+      const del = li.querySelector(".inbox-del");
+      if (del)
+        del.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          await db.from("notifications").delete().eq("id", id);
+          if (BI && BI.refresh) BI.refresh();
+          renderInbox();
+        });
+    });
+
+    const ma = pane.querySelector(".inbox-pane-markall");
+    if (ma)
+      ma.addEventListener("click", async () => {
+        await db.from("notifications").update({ is_read: true, read_at: new Date().toISOString() }).eq("is_read", false);
+        if (BI && BI.refresh) BI.refresh();
+        renderInbox();
+      });
+  }
+
+  function inboxItemHtml(r, L, BI) {
+    const meta = BI && BI.typeMeta ? BI.typeMeta(r.type) : { icon: "📬", label: "" };
+    const loc = BI && BI.localize ? BI.localize(r) : { title: r.title || "", body: r.body || "", dir: "auto" };
+    const when = BI && BI.fmtWhen ? BI.fmtWhen(r.created_at) : "";
+    const dirAttr = loc.dir && loc.dir !== "ltr" ? ` dir="${loc.dir}"` : "";
+    return `<li class="inbox-li${r.is_read ? "" : " is-unread"}" data-id="${esc(r.id)}">
+      <span class="inbox-li-ic" aria-hidden="true">${meta.icon}</span>
+      <div class="inbox-li-main"${r.ref ? ` data-ref="${esc(r.ref)}"` : ""}>
+        <div class="inbox-li-top">
+          <span class="inbox-li-label">${esc(meta.label)}</span>
+          <span class="inbox-li-when">${esc(when)}</span>
+        </div>
+        <div class="inbox-li-text"${dirAttr}>
+          <b>${esc(loc.title)}</b>
+          <p>${esc(loc.body)}</p>
+        </div>
+      </div>
+      <div class="inbox-li-actions">
+        <button type="button" class="inbox-toggle link-btn" title="${esc(r.is_read ? L.unread : L.read)}">${r.is_read ? "○" : "●"}</button>
+        <button type="button" class="inbox-del link-btn" title="${esc(L.del)}" aria-label="${esc(L.del)}">🗑</button>
+      </div>
+    </li>`;
   }
 
   // ============================ TICKET (feature 004, US2) ========================

@@ -2832,3 +2832,644 @@ select,
     flex-wrap: wrap;
   }
 }
+
+/* ============================================================
+   Support / guide pages — how-to-apply, writing-your-essay,
+   faq, contact. Reuses the site shell (nav, footer, theme).
+   Reading width matches the detail page (~880px). All colours
+   derive from the existing CSS variables (light/dark automatic).
+   ============================================================ */
+.guide-wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 52px) clamp(20px, 5vw, 64px) 90px;
+}
+.guide-head {
+  margin-bottom: 6px;
+}
+.guide-head .eyebrow {
+  margin-bottom: 20px;
+}
+.guide-head h1 {
+  font-size: clamp(2rem, 5vw, 2.9rem);
+  line-height: 1.08;
+  margin-bottom: 20px;
+}
+.guide-lead {
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+.guide-body {
+  opacity: 0;
+  animation: rise 0.8s 0.32s forwards;
+}
+.guide-body p {
+  margin-bottom: 14px;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.guide-body > p {
+  animation: rise 0.8s 0.32s forwards;
+}
+.guide-body h2 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+  margin: 40px 0 14px;
+}
+.guide-body h3 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 1.12rem;
+  margin: 24px 0 8px;
+}
+.guide-body ul,
+.guide-body ol {
+  margin: 0 0 16px;
+  padding-inline-start: 22px;
+}
+.guide-body li {
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+.guide-body a {
+  color: var(--sky);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+.guide-body a:hover {
+  color: var(--tang);
+}
+.guide-body strong {
+  font-weight: 700;
+}
+.guide-body em {
+  font-style: italic;
+}
+
+/* soft highlighted note (markdown blockquote callout) */
+.guide-body .callout {
+  background: var(--sky-soft);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--sky);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin: 22px 0;
+  font-size: 0.97rem;
+}
+.guide-body .callout p {
+  margin-bottom: 8px;
+}
+.guide-body .callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* numbered step cards (how-to-apply sequence) */
+.guide-body ol.steps {
+  list-style: none;
+  margin: 22px 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+  counter-reset: step;
+}
+.guide-body ol.steps li {
+  counter-increment: step;
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
+  padding: 18px 20px 18px 66px;
+  margin: 0;
+  font-size: 0.98rem;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.guide-body ol.steps li:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+.guide-body ol.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--tang), var(--tang-deep));
+  color: #fff;
+  font-family: "Fraunces", serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 14px -6px var(--tang);
+}
+
+/* FAQ accordion (native <details>/<summary>) */
+.guide-body .acc-group {
+  margin: 26px 0;
+}
+.guide-body .acc-group > h2 {
+  margin-top: 10px;
+}
+.guide-body details.accordion {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.guide-body details.accordion[open] {
+  border-color: var(--tang);
+  box-shadow: var(--shadow);
+}
+.guide-body details.accordion summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 16px 20px;
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 1.04rem;
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  color: var(--ink);
+}
+.guide-body details.accordion summary::-webkit-details-marker {
+  display: none;
+}
+.guide-body details.accordion summary::after {
+  content: "+";
+  flex-shrink: 0;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--tang);
+  transition: transform 0.25s;
+}
+.guide-body details.accordion[open] summary::after {
+  content: "\2013"; /* en dash */
+}
+.guide-body details.accordion .acc-body {
+  padding: 0 20px 18px;
+  font-size: 0.97rem;
+  color: var(--ink);
+}
+.guide-body details.accordion .acc-body p {
+  margin-bottom: 10px;
+}
+.guide-body details.accordion .acc-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* contact form (mailto, no backend) */
+.contact-form {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  padding: 24px;
+  margin: 18px 0 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.contact-form input,
+.contact-form textarea {
+  font: inherit;
+  font-size: 0.97rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #a99c88;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--tang);
+}
+.contact-form textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+.contact-form .form-send {
+  font: inherit;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--tang), var(--tang-deep));
+  border: 0;
+  border-radius: 999px;
+  padding: 13px 28px;
+  cursor: pointer;
+  box-shadow: 0 10px 22px -8px var(--tang);
+  transition:
+    transform 0.14s ease,
+    filter 0.2s;
+  align-self: flex-start;
+}
+.contact-form .form-send:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+.contact-form .form-send:active {
+  transform: translateY(0) scale(0.98);
+}
+.contact-form .form-help {
+  margin: -4px 0 0;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.form-helper {
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin-top: -4px;
+}
+.contact-direct {
+  font-size: 1rem;
+  margin: 22px 0 6px;
+}
+.contact-direct a {
+  color: var(--sky);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.contact-direct a:hover {
+  color: var(--tang);
+}
+
+/* end-of-guide call to action */
+.guide-cta {
+  margin-top: 42px;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--tang);
+  border-radius: 20px;
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.guide-cta p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.96rem;
+}
+.guide-cta b {
+  color: var(--ink);
+  font-family: "Fraunces", serif;
+  font-size: 1.08rem;
+}
+.guide-cta .apply-btn {
+  margin: 0;
+}
+.guide-cta .cta-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 560px) {
+  .guide-body ol.steps li {
+    padding-left: 60px;
+  }
+  .guide-body ol.steps li::before {
+    width: 32px;
+    height: 32px;
+    font-size: 0.95rem;
+    left: 14px;
+    top: 14px;
+  }
+  .guide-cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .guide-cta .apply-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ============================ Inbox (feature 005) ============================ */
+/* nav bell + unread badge */
+.nav-inbox {
+  position: relative;
+  display: inline-flex;
+}
+.nav-bell {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  padding: 0;
+  transition: border-color 0.25s, transform 0.2s;
+}
+.nav-bell:hover {
+  border-color: var(--tang);
+  color: var(--tang);
+}
+.nav-bell-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--tang);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 18px;
+  text-align: center;
+  border: 2px solid var(--card);
+}
+/* quick-view dropdown */
+.inbox-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  width: 340px;
+  max-width: 86vw;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  z-index: 1000;
+  overflow: hidden;
+}
+.inbox-dd-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+.inbox-dd-head strong {
+  font-size: 0.95rem;
+}
+.inbox-markall {
+  border: none;
+  background: none;
+  color: var(--tang);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+.inbox-dd-list {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.inbox-item {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
+  font: inherit;
+  color: var(--ink);
+}
+.inbox-item:last-child {
+  border-bottom: none;
+}
+.inbox-item:hover {
+  background: var(--amber-soft);
+}
+.inbox-item.is-unread {
+  background: color-mix(in srgb, var(--tang) 7%, transparent);
+}
+.inbox-ic {
+  font-size: 1.1rem;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+.inbox-body {
+  flex: 1;
+  min-width: 0;
+}
+.inbox-row1 {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: baseline;
+}
+.inbox-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+.inbox-item.is-unread .inbox-title::after {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-inline-start: 6px;
+  border-radius: 50%;
+  background: var(--tang);
+  vertical-align: middle;
+}
+.inbox-when {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  flex-shrink: 0;
+}
+.inbox-text {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+.inbox-empty {
+  padding: 26px 16px;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+}
+.inbox-dd-foot {
+  display: block;
+  text-align: center;
+  padding: 11px;
+  color: var(--tang);
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-top: 1px solid var(--line);
+  text-decoration: none;
+}
+.inbox-dd-foot:hover {
+  background: var(--amber-soft);
+}
+[dir="rtl"] .inbox-body {
+  text-align: right;
+}
+
+/* account Inbox pane */
+.inbox-pane-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.inbox-pane-title {
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.inbox-pane-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 11px;
+  background: var(--tang);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+.inbox-pane-markall {
+  border: none;
+  background: none;
+  color: var(--tang);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+.inbox-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.inbox-li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+}
+.inbox-li.is-unread {
+  border-color: color-mix(in srgb, var(--tang) 45%, var(--line));
+  background: color-mix(in srgb, var(--tang) 6%, var(--card));
+}
+.inbox-li-ic {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.inbox-li-main {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+.inbox-li-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+  margin-bottom: 3px;
+}
+.inbox-li-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--tang);
+}
+.inbox-li-when {
+  font-size: 0.74rem;
+  color: var(--ink-soft);
+  flex-shrink: 0;
+}
+.inbox-li-text b {
+  font-size: 0.95rem;
+}
+.inbox-li-text p {
+  margin: 3px 0 0;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.inbox-li-text[dir="rtl"] {
+  text-align: right;
+}
+.inbox-li-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.inbox-toggle,
+.inbox-del {
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink-soft);
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-size: 0.9rem;
+  padding: 0;
+  transition: border-color 0.2s, color 0.2s;
+}
+.inbox-toggle:hover {
+  border-color: var(--tang);
+  color: var(--tang);
+}
+.inbox-del:hover {
+  border-color: var(--tang-deep);
+  color: var(--tang-deep);
+}
+.link-btn {
+  font: inherit;
+}

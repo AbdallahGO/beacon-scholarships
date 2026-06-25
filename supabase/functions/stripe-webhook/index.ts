@@ -56,8 +56,9 @@ Deno.serve(async (req: Request) => {
       if (ex && ex.length) return new Response("ok");
 
       const cooldownEnd = new Date(Date.now() + COOLDOWN_MS).toISOString();
+      const code = ticketCode();
       const { error } = await admin.from("tickets").insert({
-        ticket_code: ticketCode(),
+        ticket_code: code,
         user_id: m.user_id,
         scholarship_id: m.scholarship_id,
         scholarship_title: m.scholarship_title || null,
@@ -77,6 +78,21 @@ Deno.serve(async (req: Request) => {
       });
       // a unique-index conflict (one-per-scholarship / dup session) is a benign no-op
       if (error && !/duplicate|unique/i.test(error.message)) console.error("ticket insert failed", error);
+
+      // booking confirmation in the user's inbox (feature 005, FR-008/009).
+      // Idempotent via dedupe_key; a duplicate-key conflict on webhook re-delivery is benign.
+      const { error: noteErr } = await admin.from("notifications").insert({
+        user_id: m.user_id,
+        type: "booking",
+        dedupe_key: "booking:" + session.id,
+        ref: "account.html#ticket",
+        payload: {
+          scholarship_title: m.scholarship_title || null,
+          ticket_code: code,
+          available_at: cooldownEnd,
+        },
+      });
+      if (noteErr && !/duplicate|unique/i.test(noteErr.message)) console.error("booking notification insert failed", noteErr);
     } else if (m.kind === "space") {
       // +1 ticket space (US3/T024): idempotent via the space_purchases ledger
       const { data: ex } = await admin.from("space_purchases").select("stripe_session_id").eq("stripe_session_id", session.id).limit(1);
@@ -99,3 +115,4 @@ Deno.serve(async (req: Request) => {
 
   return new Response("ok");
 });
+

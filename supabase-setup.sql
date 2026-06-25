@@ -2528,7 +2528,15 @@ begin
   return n;
 end $$;
 
-revoke all on function public.admin_broadcast(text, text) from public;
+-- Trigger functions must NOT be directly callable via the REST RPC surface
+-- (they only ever run from their triggers; revoking EXECUTE does not affect
+-- trigger firing, which runs with the function owner's privileges).
+revoke all on function public.notify_welcome() from public, anon, authenticated;
+revoke all on function public.notify_contact() from public, anon, authenticated;
+
+-- admin_broadcast: callable only by signed-in users (the owner dashboard); it
+-- additionally self-guards on public.admins and raises for non-admins.
+revoke all on function public.admin_broadcast(text, text) from public, anon;
 grant execute on function public.admin_broadcast(text, text) to authenticated;
 -- ============================================================================
 -- End Feature 005

@@ -23,6 +23,45 @@
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
   }[c]));
 
+  // ---- multi-provider payments (feature 006) — bilingual EN/AR + RTL ----------
+  const LANG_KEY = "beacon-lang";
+  const getLang = () => {
+    try { return localStorage.getItem(LANG_KEY) === "ar" ? "ar" : "en"; } catch (e) { return "en"; }
+  };
+  const PAYI18N = {
+    en: {
+      choose: "Choose how to pay",
+      unavailable: "Payments are temporarily unavailable. Please try again later.",
+      received: "Payment received — confirming your ticket ♥",
+      notDone: "Payment not completed — you can try again.",
+      inProgress: "You already have a payment in progress for this ticket.",
+    },
+    ar: {
+      choose: "اختر طريقة الدفع",
+      unavailable: "المدفوعات غير متاحة مؤقتًا. حاول مرة أخرى لاحقًا.",
+      received: "تم استلام الدفع — جارٍ تأكيد تذكرتك ♥",
+      notDone: "لم تكتمل العملية — يمكنك المحاولة مرة أخرى.",
+      inProgress: "لديك عملية دفع قيد التنفيذ لهذه التذكرة بالفعل.",
+    },
+  };
+  const payT = (k) => (PAYI18N[getLang()] || PAYI18N.en)[k];
+
+  async function fetchProviders() {
+    if (!A || !A.client) return [];
+    try {
+      const { data } = await A.client
+        .from("payment_providers")
+        .select("provider,display_name,currency,fx_rate,sort_order")
+        .eq("enabled", true)
+        .order("sort_order");
+      return data || [];
+    } catch (e) { return []; }
+  }
+  function providerPrice(p) {
+    const cents = Math.round((RI.price || 15000) * (Number(p.fx_rate) || 1));
+    return esc(p.currency) + " " + (cents / 100).toLocaleString(getLang() === "ar" ? "ar" : "en");
+  }
+
   // area between #detailBody and #applyArea (FR-003)
   const area = document.createElement("section");
   area.id = "bookTicketArea";
@@ -78,8 +117,55 @@
       if (A && A.requireAuth) A.requireAuth({ type: "route", href: location.href.split("#")[0] + "#book" });
       return;
     }
+    beginPayment(user);
+  }
+
+  // Provider-picker step (FR-020/027): list enabled providers; if one, go straight
+  // to checkout; if several, let the user choose; if none, show unavailable.
+  async function beginPayment(user) {
+    if (busy || myTicket) return;
     busy = true;
-    playAnimation(() => startCheckout(user));
+    const providers = await fetchProviders();
+    if (!providers.length) { busy = false; paintUnavailable(); return; }
+    if (providers.length === 1) { playAnimation(() => startCheckout(user, providers[0].provider)); return; }
+    busy = false;
+    renderPicker(user, providers);
+  }
+
+  function paintUnavailable() {
+    const ar = getLang() === "ar";
+    area.innerHTML =
+      `<div class="tc-inner"${ar ? ' dir="rtl"' : ""}>
+        <div class="tc-head">
+          <span class="tc-emote" aria-hidden="true">😶</span>
+          <div class="tc-copy"><h2>${esc(payT("unavailable"))}</h2></div>
+        </div>
+      </div>`;
+  }
+
+  function renderPicker(user, providers) {
+    const ar = getLang() === "ar";
+    area.innerHTML =
+      `<div class="tc-inner tc-picker"${ar ? ' dir="rtl"' : ""}>
+        <div class="tc-head">
+          <span class="tc-emote" aria-hidden="true">💳</span>
+          <div class="tc-copy"><h2>${esc(payT("choose"))}</h2></div>
+        </div>
+        <div class="tc-prov-list">
+          ${providers.map((p) =>
+            `<button type="button" class="tc-btn tc-prov" data-provider="${esc(p.provider)}">
+               <span class="tc-btn-label">${esc(p.display_name)} — ${providerPrice(p)}</span>
+               <span class="tc-btn-arrow" aria-hidden="true">→</span>
+             </button>`).join("")}
+        </div>
+      </div>`;
+    area.querySelectorAll(".tc-prov").forEach((b) =>
+      b.addEventListener("click", () => {
+        if (busy) return;
+        busy = true;
+        const provider = b.dataset.provider;
+        playAnimation(() => startCheckout(user, provider));
+      }));
   }
 
   // Confetti burst (Claude Design): 26 particles spread radially, biased upward,
@@ -142,15 +228,20 @@
     setTimeout(done, reduceMotion ? 800 : 2000);
   }
 
-  async function startCheckout(user) {
+  // Stripe keeps its dedicated endpoint name; the new providers follow the same
+  // {provider}-checkout convention. All take { kind:'ticket', scholarship_id }.
+  async function startCheckout(user, provider) {
+    provider = provider || "stripe";
+    const endpoint = provider === "stripe" ? "ticket-checkout" : provider + "-checkout";
     try {
       const sess = A.client && (await A.client.auth.getSession());
       const token = sess && sess.data && sess.data.session && sess.data.session.access_token;
       if (!token) throw new Error("no session");
-      const res = await fetch(window.FUNCTIONS_BASE + "/ticket-checkout", {
+      const res = await fetch(window.FUNCTIONS_BASE + "/" + endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
         body: JSON.stringify({
+          kind: "ticket",
           scholarship_id: String(rec.id),
           scholarship_title: rec.title || "",
           institution: rec.org || "",
@@ -171,8 +262,12 @@
           setTimeout(() => { location.href = "account.html#profile"; }, 1300);
         } else if (out.error === "already_booked") {
           myTicket = {}; paintBooked();
+        } else if (out.error === "already_in_progress") {
+          A.toast(payT("inProgress")); paintBookable();
         } else if (out.error === "at_capacity") {
           paintAtCapacity();
+        } else if (out.error === "provider_disabled") {
+          A.toast(payT("unavailable")); paintBookable();
         } else {
           A.toast("Couldn't start checkout — please try again."); paintBookable();
         }
@@ -217,14 +312,19 @@
   }
 
   function handleReturn() {
-    if (location.hash === "#ticket-booked") {
-      if (A && A.toast) A.toast("Payment received — your ticket is booking. See it in your account ♥");
+    // Stripe success → #ticket-booked; the new providers redirect to #pay-return
+    // (and #pay-cancel on abort). Booking is confirmed only when the webhook has
+    // created the ticket — we poll our own tickets (payments is admin-read-only).
+    if (location.hash === "#ticket-booked" || location.hash === "#pay-return") {
+      if (A && A.toast) A.toast(payT("received"));
       history.replaceState(null, "", location.pathname + location.search);
-      // the webhook may take a moment to create the row — re-check shortly
-      [2500, 6000].forEach((ms) => setTimeout(() => {
+      [2500, 6000, 10000].forEach((ms) => setTimeout(() => {
         const u = A && A.getUser && A.getUser();
         if (u) refresh(u);
       }, ms));
+    } else if (location.hash === "#pay-cancel") {
+      if (A && A.toast) A.toast(payT("notDone"));
+      history.replaceState(null, "", location.pathname + location.search);
     }
   }
 

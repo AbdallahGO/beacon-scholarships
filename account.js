@@ -131,6 +131,40 @@
     }),
   );
 
+  // ---- multi-provider payment return (feature 006) ----------------------------
+  // The new providers redirect to account.html#pay-return (or #pay-cancel); route
+  // those to the Ticket tab and let the existing spacePending repoll confirm.
+  const SPACE_PAY = {
+    en: {
+      choose: "Choose how to pay",
+      unavailable: "Payments are temporarily unavailable. Please try again later.",
+      received: "Payment received — confirming your extra space ♥",
+      notDone: "Payment not completed — you can try again.",
+    },
+    ar: {
+      choose: "اختر طريقة الدفع",
+      unavailable: "المدفوعات غير متاحة مؤقتًا. حاول مرة أخرى لاحقًا.",
+      received: "تم استلام الدفع — جارٍ تأكيد المساحة الإضافية ♥",
+      notDone: "لم تكتمل العملية — يمكنك المحاولة مرة أخرى.",
+    },
+  };
+  function spacePayLang() {
+    return window.BeaconInbox && window.BeaconInbox.getLang ? window.BeaconInbox.getLang() : "en";
+  }
+  function spacePayT(k) { return (SPACE_PAY[spacePayLang()] || SPACE_PAY.en)[k]; }
+
+  (function handlePayReturn() {
+    const h = location.hash;
+    if (h !== "#pay-return" && h !== "#pay-cancel") return;
+    if (h === "#pay-return") {
+      try { sessionStorage.setItem("beacon.spacePending", "1"); } catch (e) {}
+      A.toast(spacePayT("received"));
+    } else {
+      A.toast(spacePayT("notDone"));
+    }
+    history.replaceState(null, "", location.pathname + location.search + "#ticket");
+  })();
+
   // ---- router -----------------------------------------------------------------
   const TABS = ["profile", "inbox", "ticket", "saved", "history", "settings"];
   function activeTab() {
@@ -373,7 +407,24 @@
     );
   }
 
-  // +1 ticket space (US3/T025): redirect to the space-checkout Stripe session
+  // +1 ticket space (feature 004 US3 + feature 006 multi-provider): choose an
+  // enabled provider, then redirect to that provider's checkout for kind=space.
+  async function fetchSpaceProviders() {
+    try {
+      const { data } = await db
+        .from("payment_providers")
+        .select("provider,display_name,currency,fx_rate,sort_order")
+        .eq("enabled", true)
+        .order("sort_order");
+      return data || [];
+    } catch (e) { return []; }
+  }
+  function providerSpacePrice(p) {
+    const base = window.SPACE_PRICE_CENTS || 9900;
+    const cents = Math.round(base * (Number(p.fx_rate) || 1));
+    return esc(p.currency) + " " + (cents / 100).toLocaleString();
+  }
+
   function wireSpaceBuy() {
     const b = document.getElementById("tkSpaceBuy");
     if (!b) return;
@@ -381,41 +432,65 @@
       if (b.disabled) return;
       const label = b.textContent;
       b.disabled = true;
-      b.textContent = "Starting checkout…";
-      try {
-        const sess = await db.auth.getSession();
-        const token =
-          sess &&
-          sess.data &&
-          sess.data.session &&
-          sess.data.session.access_token;
-        if (!token) throw new Error("no session");
-        const res = await fetch(window.FUNCTIONS_BASE + "/space-checkout", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({ origin: location.href }),
-        });
-        const out = await res.json().catch(() => ({}));
-        if (out.url) {
-          try {
-            sessionStorage.setItem("beacon.spacePending", "1");
-          } catch (e) {}
-          location.href = out.url;
-          return;
-        }
-        throw new Error(out.error || "no checkout url");
-      } catch (e) {
-        console.error(e);
-        A.toast(
-          "Couldn't start checkout for the extra space — please try again.",
-        );
-        b.disabled = false;
-        b.textContent = label;
+      b.textContent = "…";
+      const providers = await fetchSpaceProviders();
+      if (!providers.length) {
+        A.toast(spacePayT("unavailable"));
+        b.disabled = false; b.textContent = label;
+        return;
       }
+      if (providers.length === 1) {
+        startSpaceCheckout(providers[0].provider, b, label);
+        return;
+      }
+      b.disabled = false; b.textContent = label;
+      showSpacePicker(providers);
     });
+  }
+
+  function showSpacePicker(providers) {
+    const row = document.getElementById("tkSpaceRow");
+    if (!row) return;
+    row.innerHTML =
+      `<div class="tk-space-picker"><span>${esc(spacePayT("choose"))}</span>
+        ${providers.map((p) =>
+          `<button type="button" class="tk-space-buy tk-space-prov" data-provider="${esc(p.provider)}">${esc(p.display_name)} — ${providerSpacePrice(p)}</button>`).join("")}
+      </div>`;
+    row.querySelectorAll(".tk-space-prov").forEach((btn) =>
+      btn.addEventListener("click", () => startSpaceCheckout(btn.dataset.provider, btn, btn.textContent)));
+  }
+
+  async function startSpaceCheckout(provider, btn, label) {
+    const endpoint = provider === "stripe" ? "space-checkout" : provider + "-checkout";
+    if (btn) { btn.disabled = true; btn.textContent = "Starting checkout…"; }
+    try {
+      const sess = await db.auth.getSession();
+      const token = sess && sess.data && sess.data.session && sess.data.session.access_token;
+      if (!token) throw new Error("no session");
+      const res = await fetch(window.FUNCTIONS_BASE + "/" + endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
+        body: JSON.stringify({ kind: "space", origin: location.href }),
+      });
+      const out = await res.json().catch(() => ({}));
+      if (out.url) {
+        try { sessionStorage.setItem("beacon.spacePending", "1"); } catch (e) {}
+        location.href = out.url;
+        return;
+      }
+      if (out.error === "already_in_progress") {
+        A.toast("You already have a space purchase in progress.");
+      } else if (out.error === "provider_disabled") {
+        A.toast(spacePayT("unavailable"));
+      } else {
+        A.toast("Couldn't start checkout for the extra space — please try again.");
+      }
+      if (btn) { btn.disabled = false; btn.textContent = label; }
+    } catch (e) {
+      console.error(e);
+      A.toast("Couldn't start checkout for the extra space — please try again.");
+      if (btn) { btn.disabled = false; btn.textContent = label; }
+    }
   }
 
   function ticketHtml(t) {

@@ -57,7 +57,7 @@ Deno.serve(async (req: Request) => {
 
       const cooldownEnd = new Date(Date.now() + COOLDOWN_MS).toISOString();
       const code = ticketCode();
-      const { error } = await admin.from("tickets").insert({
+      const { data: tk, error } = await admin.from("tickets").insert({
         ticket_code: code,
         user_id: m.user_id,
         scholarship_id: m.scholarship_id,
@@ -70,14 +70,29 @@ Deno.serve(async (req: Request) => {
         stripe_payment_intent: (session.payment_intent as string) || null,
         status: "active",
         cooldown_end: cooldownEnd,
+        provider: "stripe",
         reveal_full_name: m.reveal_full_name || null,
         reveal_country: m.reveal_country || null,
         reveal_nationality: m.reveal_nationality || null,
         reveal_degree: m.reveal_degree || null,
         reveal_field_of_interest: m.reveal_field_of_interest || null,
-      });
+      }).select("id").maybeSingle();
       // a unique-index conflict (one-per-scholarship / dup session) is a benign no-op
       if (error && !/duplicate|unique/i.test(error.message)) console.error("ticket insert failed", error);
+
+      // feature-006: mark the payments ledger row paid + link it to the ticket
+      const { data: pay } = await admin.from("payments").select("id,status")
+        .eq("provider", "stripe").eq("provider_ref", session.id).maybeSingle();
+      if (pay) {
+        if (pay.status !== "paid") {
+          await admin.from("payments").update({ status: "paid", updated_at: new Date().toISOString() })
+            .eq("id", pay.id).neq("status", "paid");
+        }
+        if (tk?.id) {
+          await admin.from("payments").update({ ticket_id: tk.id }).eq("id", pay.id);
+          await admin.from("tickets").update({ payment_id: pay.id }).eq("id", tk.id);
+        }
+      }
 
       // booking confirmation in the user's inbox (feature 005, FR-008/009).
       // Idempotent via dedupe_key; a duplicate-key conflict on webhook re-delivery is benign.
@@ -106,6 +121,17 @@ Deno.serve(async (req: Request) => {
       // keep the display column in step (authoritative capacity is derived from the ledger)
       const { data: prof } = await admin.from("profiles").select("ticket_capacity").eq("user_id", m.user_id).maybeSingle();
       await admin.from("profiles").update({ ticket_capacity: (prof?.ticket_capacity ?? 1) + 1 }).eq("user_id", m.user_id);
+
+      // feature-006: mark the payments ledger row paid + link the purchase
+      const { data: pay } = await admin.from("payments").select("id,status")
+        .eq("provider", "stripe").eq("provider_ref", session.id).maybeSingle();
+      if (pay) {
+        if (pay.status !== "paid") {
+          await admin.from("payments").update({ status: "paid", updated_at: new Date().toISOString() })
+            .eq("id", pay.id).neq("status", "paid");
+        }
+        await admin.from("space_purchases").update({ provider: "stripe", payment_id: pay.id }).eq("stripe_session_id", session.id);
+      }
     }
     // owner email on kind="ticket" added in US8/T035.
   } catch (e) {

@@ -62,6 +62,13 @@ Deno.serve(async (req: Request) => {
       .eq("user_id", user.id).eq("scholarship_id", scholarshipId).neq("status", "void").limit(1);
     if (existing && existing.length) return json({ error: "already_booked" }, 409);
 
+    // feature-006 double-pay guard: a paid payments row for this item blocks too
+    const { data: existingPay } = await admin
+      .from("payments").select("id,status")
+      .eq("user_id", user.id).eq("kind", "ticket").eq("item_ref", scholarshipId)
+      .in("status", ["pending", "paid"]).maybeSingle();
+    if (existingPay && existingPay.status === "paid") return json({ error: "already_booked" }, 409);
+
     // capacity = 1 + permanent space purchases; occupied = tickets still in cooldown
     const { count: spaceCount } = await admin
       .from("space_purchases").select("*", { count: "exact", head: true }).eq("user_id", user.id);
@@ -115,6 +122,21 @@ Deno.serve(async (req: Request) => {
         reveal_field_of_interest: (prof.field_of_interest ?? "").slice(0, 250),
       },
     });
+
+    // feature-006: record a pending payments ledger row keyed by the Stripe
+    // session id (provider 'stripe', USD, fx 1.0). A retry reuses the existing
+    // pending slot so the active-item unique index never traps the user.
+    if (existingPay) {
+      await admin.from("payments").update({
+        provider_ref: session.id, amount_cents: amount, currency: "usd",
+        updated_at: new Date().toISOString(),
+      }).eq("id", existingPay.id);
+    } else {
+      await admin.from("payments").insert({
+        user_id: user.id, provider: "stripe", kind: "ticket", item_ref: scholarshipId,
+        amount_cents: amount, currency: "usd", status: "pending", provider_ref: session.id,
+      });
+    }
 
     return json({ url: session.url });
   } catch (e) {

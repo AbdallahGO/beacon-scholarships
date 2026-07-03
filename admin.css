@@ -1,0 +1,433 @@
+/* admin.css — Beacon admin dashboard (specs/006-admin-dashboard).
+   English-only, LTR. Reuses index.css theme tokens (--paper, --ink, --card, …). */
+
+.admin-wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 100px 20px 80px;
+}
+
+.admin-loading,
+.admin-empty,
+.admin-hint {
+  color: var(--ink-soft);
+  padding: 16px 2px;
+}
+.admin-empty {
+  background: var(--paper-2);
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  text-align: center;
+  padding: 28px;
+}
+.admin-hint {
+  font-size: 0.9rem;
+}
+
+.admin-error {
+  background: var(--rose-soft);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  color: var(--ink);
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--tang-deep);
+  cursor: pointer;
+  font: inherit;
+  padding: 4px 0;
+  text-decoration: underline;
+}
+
+/* ---------- not-authorized card ---------- */
+.admin-denied {
+  max-width: 460px;
+  margin: 40px auto;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  padding: 40px 30px;
+}
+.admin-denied .big {
+  font-size: 2.6rem;
+  margin-bottom: 8px;
+}
+.admin-denied h2 {
+  font-family: "Fraunces", serif;
+  margin-bottom: 8px;
+}
+.admin-denied p {
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+
+/* ---------- shell ---------- */
+.admin-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.admin-title {
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+.admin-sub {
+  color: var(--ink-soft);
+}
+.admin-refresh {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  padding: 8px 16px;
+  white-space: nowrap;
+}
+.admin-refresh:hover {
+  border-color: var(--tang);
+  color: var(--tang-deep);
+}
+
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 24px;
+}
+.admin-tabs a {
+  padding: 10px 16px;
+  border-radius: 12px 12px 0 0;
+  color: var(--ink-soft);
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+}
+.admin-tabs a:hover {
+  color: var(--ink);
+  background: var(--paper-2);
+}
+.admin-tabs a.active {
+  color: var(--tang-deep);
+  border-bottom-color: var(--tang);
+}
+
+/* ---------- overview cards ---------- */
+.admin-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+.admin-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.admin-card-val {
+  font-family: "Fraunces", serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--tang-deep);
+}
+.admin-card-label {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+/* ---------- forms ---------- */
+.admin-form,
+.admin-reply-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 560px;
+}
+.admin-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.admin-field .opt {
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+.admin-form input[type="text"],
+.admin-form input[type="email"],
+.admin-form textarea,
+.admin-reply-form input,
+.admin-reply-form textarea,
+.admin-provider-config input {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  font: inherit;
+  padding: 10px 12px;
+  width: 100%;
+}
+.admin-form textarea,
+.admin-reply-form textarea {
+  resize: vertical;
+}
+.admin-form input:focus,
+.admin-form textarea:focus,
+.admin-reply-form input:focus,
+.admin-reply-form textarea:focus,
+.admin-provider-config input:focus {
+  outline: 2px solid var(--tang);
+  outline-offset: 1px;
+  border-color: var(--tang);
+}
+.admin-radio-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-weight: 600;
+}
+.admin-radio-row label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.admin-inline-err {
+  color: var(--rose);
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.admin-compose,
+.admin-log,
+.admin-pay-section {
+  margin-bottom: 36px;
+}
+.admin-compose h2,
+.admin-log h2,
+.admin-pay-section h2 {
+  font-family: "Fraunces", serif;
+  margin-bottom: 14px;
+}
+
+/* ---------- sent-message log + contact list ---------- */
+.admin-log-list,
+.admin-contact-list,
+.admin-acct-list,
+.admin-booking-list,
+.admin-provider-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.admin-log-item,
+.admin-contact-item,
+.admin-booking {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+}
+.admin-log-top,
+.admin-contact-head,
+.admin-booking-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+.admin-log-target,
+.admin-contact-from {
+  font-weight: 600;
+}
+.admin-log-when {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.admin-log-title {
+  font-weight: 600;
+  margin-top: 4px;
+}
+.admin-log-body,
+.admin-contact-msg {
+  color: var(--ink-soft);
+  margin: 6px 0;
+  white-space: pre-wrap;
+}
+.admin-log-meta,
+.admin-booking-meta {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+.admin-reply-form {
+  margin-top: 12px;
+}
+
+/* ---------- accounts ---------- */
+.admin-accounts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 20px;
+  align-items: start;
+}
+.admin-acct-item {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.admin-acct-item:hover {
+  border-color: var(--tang);
+}
+.admin-acct-item.selected {
+  border-color: var(--tang);
+  box-shadow: var(--shadow-sm);
+}
+.admin-acct-name {
+  font-weight: 600;
+}
+.admin-acct-meta,
+.admin-acct-when {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+.admin-acct-detail {
+  position: sticky;
+  top: 90px;
+}
+
+/* ---------- pills ---------- */
+.admin-pill {
+  display: inline-block;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.admin-pill-paid {
+  background: var(--leaf-soft);
+  color: var(--leaf);
+  border-color: var(--leaf);
+}
+.admin-pill-pending {
+  background: var(--amber-soft);
+  color: var(--amber);
+  border-color: var(--amber);
+}
+.admin-pill-failed,
+.admin-pill-cancelled {
+  background: var(--rose-soft);
+  color: var(--rose);
+  border-color: var(--rose);
+}
+
+/* ---------- payments: providers ---------- */
+.admin-provider {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+}
+.admin-provider-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.admin-provider-name code {
+  background: var(--paper-2);
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+.admin-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.admin-switch input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--leaf);
+}
+.admin-provider-config {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+.admin-provider-config label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+/* ---------- payments: tables ---------- */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.admin-table th,
+.admin-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+.admin-table th {
+  background: var(--paper-2);
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+.admin-table code {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+.admin-totals-grand {
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 720px) {
+  .admin-accounts {
+    grid-template-columns: 1fr;
+  }
+  .admin-acct-detail {
+    position: static;
+  }
+}

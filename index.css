@@ -2703,6 +2703,26 @@ select,
   opacity: 0.6;
   cursor: default;
 }
+/* multi-provider pickers (feature 006) */
+.tk-space-picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.tk-space-prov {
+  margin-left: 0;
+}
+.tc-prov-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+.tc-prov {
+  width: 100%;
+}
 .tk-list {
   display: grid;
   gap: 18px;

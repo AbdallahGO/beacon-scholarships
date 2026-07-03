@@ -23,6 +23,7 @@ const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, {
 });
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY")!;
+const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const SPACE_PRICE_CENTS = parseInt(Deno.env.get("SPACE_PRICE_CENTS") ?? "9900", 10);
 
 Deno.serve(async (req: Request) => {
@@ -43,6 +44,13 @@ Deno.serve(async (req: Request) => {
     if (!/^https?:\/\//.test(origin)) return json({ error: "bad_request" }, 400);
     const base = origin.split("#")[0];
 
+    const admin = createClient(SUPABASE_URL, SERVICE_KEY);
+    // feature-006 double-pay guard: reuse an in-progress pending space payment
+    // (so a retry doesn't create a second active ledger row).
+    const { data: pendingSpace } = await admin
+      .from("payments").select("id")
+      .eq("user_id", user.id).eq("kind", "space").eq("status", "pending").maybeSingle();
+
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: [{
@@ -62,6 +70,19 @@ Deno.serve(async (req: Request) => {
       customer_email: user.email ?? undefined,
       metadata: { kind: "space", user_id: user.id },
     });
+
+    // feature-006: pending payments ledger row keyed by the Stripe session id.
+    if (pendingSpace) {
+      await admin.from("payments").update({
+        provider_ref: session.id, amount_cents: SPACE_PRICE_CENTS, currency: "usd",
+        updated_at: new Date().toISOString(),
+      }).eq("id", pendingSpace.id);
+    } else {
+      await admin.from("payments").insert({
+        user_id: user.id, provider: "stripe", kind: "space", item_ref: crypto.randomUUID(),
+        amount_cents: SPACE_PRICE_CENTS, currency: "usd", status: "pending", provider_ref: session.id,
+      });
+    }
 
     return json({ url: session.url });
   } catch (e) {

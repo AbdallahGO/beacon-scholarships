@@ -60,6 +60,24 @@ loadFilters();
 const initialQ = new URLSearchParams(location.search).get("q");
 if (initialQ) state.q = initialQ;
 
+// ---- filter quick-links (nav-fixes T4): footer/nav param links land pre-filtered.
+// URL params OVERRIDE the saved beacon.filters so quick-links work for returning
+// visitors too. Values are mapped to the site's real control values; anything that
+// doesn't map is ignored silently (no error, no broken UI). Country is validated
+// later in applyStateToControls() against the real dropdown options.
+let quickLinked = false;
+(function applyQuickLinkParams() {
+  const p = new URLSearchParams(location.search);
+  const fundMap = { "fully-funded": "full", full: "full", partial: "partial", varies: "varies" };
+  const levelMap = { masters: "master", master: "master", phd: "phd", bachelor: "bachelor", highschool: "highschool" };
+  const f = p.get("funding");
+  if (f && fundMap[f]) { state.fund = fundMap[f]; quickLinked = true; }
+  const l = p.get("level");
+  if (l && levelMap[l]) { state.level = levelMap[l]; quickLinked = true; }
+  const c = p.get("country");
+  if (c) { state.country = c; quickLinked = true; }
+})();
+
 // escape user-facing text before injecting into innerHTML
 const esc = (s) =>
   String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({
@@ -84,6 +102,10 @@ document.getElementById("stat-count").textContent = data.length;
 const countriesStat = document.getElementById("stat-countries");
 if (countriesStat) countriesStat.textContent = countries.length;
 document.getElementById("resCount").textContent = data.length;
+// reveal the now-populated hero counts (nav-fixes T6): before this, .stat-dyn is
+// hidden via CSS so the pre-JS HTML never shows "0 live opportunities".
+const trustEl = document.querySelector(".trust");
+if (trustEl) trustEl.classList.add("stats-ready");
 
 const pin = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>`;
 const clock = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`;
@@ -404,3 +426,10 @@ if (!dataLoaded || data.length === 0) {
 
 applyStateToControls();
 render();
+
+// quick-link deep-links (nav-fixes T4): after filters apply, make sure the browse
+// section is actually in view (the #browse hash still drives the scroll).
+if (quickLinked && location.hash === "#browse") {
+  const b = document.getElementById("browse");
+  if (b) b.scrollIntoView();
+}

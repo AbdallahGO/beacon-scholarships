@@ -401,6 +401,15 @@ h1 em::after {
   display: block;
   font-weight: 600;
 }
+/* stats fallback (nav-fixes T6): dynamic counts stay hidden (space reserved, so
+   no layout shift) until index.js injects the real numbers — the raw/pre-JS HTML
+   therefore never renders "0 live opportunities". */
+.trust .stat-dyn {
+  visibility: hidden;
+}
+.trust.stats-ready .stat-dyn {
+  visibility: visible;
+}
 
 /* ---------- RESULTS SECTION ---------- */
 main {
@@ -2369,6 +2378,17 @@ select,
   margin-top: 10px;
   color: var(--ink-soft);
   font-size: 0.82rem;
+}
+/* checkout Terms agreement line (nav-fixes T7): immediately before the pay action */
+.tc-terms {
+  margin: 4px 0 12px;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+.tc-terms a {
+  color: var(--tang);
+  font-weight: 600;
+  text-decoration: underline;
 }
 .tc-booked .tc-emote,
 .tc-capacity .tc-emote {

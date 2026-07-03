@@ -211,7 +211,7 @@
             </label>
             <label class="auth-agree">
               <input type="checkbox" name="agreement" />
-              <span>I confirm my details are accurate and understand that booking a ticket is a non-refundable service.</span>
+              <span>I confirm my details are accurate and agree to Beacon's Terms of Service.</span>
             </label>
             <datalist id="authCountryList"></datalist>
           </div>
@@ -560,7 +560,7 @@
       );
       ring.style.setProperty("--p", String(p));
       ring.hidden = false;
-      ring.title = "Ticket cooldown in progress";
+      ring.title = "Your ticket is being prepared";
     } catch (e) {
       /* nav ring is best-effort */
     }

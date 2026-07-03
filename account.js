@@ -504,7 +504,7 @@
           <div class="tk-title">${esc(title)}</div>
           <div class="tk-inst">${esc(inst)}</div>
           <div class="tk-countdown" data-ends="${ends}"></div>
-          <div class="tk-locked">Your ticket unlocks when the 3-day cooldown ends — your unique ticket ID and details appear here.</div>
+          <div class="tk-locked">Your ticket unlocks once your three days of preparation are complete — your unique ticket ID and details appear here.</div>
         </div>`;
     }
     const deg = DEGREE_LABEL[t.reveal_degree] || t.reveal_degree || "—";
@@ -538,7 +538,7 @@
         const ms = parseInt(el.dataset.ends, 10) - Date.now();
         if (ms <= 0) {
           expired = true;
-          el.innerHTML = `<div class="tk-locked">Revealing…</div>`;
+          el.innerHTML = `<div class="tk-locked">Opening your ticket…</div>`;
           return;
         }
         const s = Math.floor(ms / 1000);

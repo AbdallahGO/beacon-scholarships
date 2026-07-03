@@ -78,11 +78,12 @@
           <span class="tc-emote" aria-hidden="true">🎫</span>
           <div class="tc-copy">
             <h2>Ready for your next step?</h2>
-            <p>You can't apply on Beacon — book your ticket to begin the journey toward your exam, interview, and scholarship.</p>
+            <p>Book your ticket and our team gets to work — your CV, your essay, your documents, and your exam or interview prep, delivered within three days.</p>
           </div>
         </div>
+        <p class="tc-terms">By booking, you agree to the <a href="/terms.html">Terms of Service</a>.</p>
         <button class="tc-btn" id="bookTicketBtn" type="button"><span class="tc-btn-label">Book your ticket — ${esc(priceText)}</span><span class="tc-btn-arrow" aria-hidden="true">→</span></button>
-        <div class="tc-note">One-time &amp; non-refundable. Price is set by the institution's ranking.</div>
+        <div class="tc-note">One-time payment for three days of preparation work. The price reflects how demanding this application is.</div>
       </div>`;
     const btn = area.querySelector("#bookTicketBtn");
     if (btn) btn.addEventListener("click", onBook);
@@ -93,7 +94,7 @@
       `<div class="tc-inner tc-booked">
         <div class="tc-head">
           <span class="tc-emote" aria-hidden="true">✅</span>
-          <div class="tc-copy"><h2>Your ticket is booked</h2><p>Track its cooldown and reveal in your account.</p></div>
+          <div class="tc-copy"><h2>Your ticket is booked</h2><p>Our team is preparing your package — track its progress in your account.</p></div>
         </div>
         <a class="tc-btn tc-btn-ghost" href="account.html#ticket">View your ticket →</a>
       </div>`;
@@ -104,7 +105,7 @@
       `<div class="tc-inner tc-capacity">
         <div class="tc-head">
           <span class="tc-emote" aria-hidden="true">⏳</span>
-          <div class="tc-copy"><h2>You already have a ticket in progress</h2><p>Wait for its 3-day cooldown to finish, or add ticket space to hold another at once.</p></div>
+          <div class="tc-copy"><h2>You already have a ticket in progress</h2><p>Wait for its three days of preparation to finish, or add ticket space to run another at the same time.</p></div>
         </div>
         <a class="tc-btn tc-btn-ghost" href="account.html#ticket">Manage tickets / add space →</a>
       </div>`;

@@ -3153,14 +3153,11 @@ grant execute on function public.admin_payments_overview() to authenticated;
 -- the existing flat columns on save so ticket-checkout + admin keep working.
 -- ============================================================================
 alter table public.profiles
-  add column if not exists cv jsonb;
+add column if not exists cv jsonb;
 alter table public.profiles
-  add column if not exists cv_theme text;
-
-comment on column public.profiles.cv is
-  'Feature 007: full CV builder object (contact/objective/education/experience/honors/skills/activities + theme). Owner-scoped by existing profiles RLS.';
-comment on column public.profiles.cv_theme is
-  'Feature 007: selected CV theme id (also present as cv->>''theme''). No DB CHECK so new themes need no migration.';
+add column if not exists cv_theme text;
+comment on column public.profiles.cv is 'Feature 007: full CV builder object (contact/objective/education/experience/honors/skills/activities + theme). Owner-scoped by existing profiles RLS.';
+comment on column public.profiles.cv_theme is 'Feature 007: selected CV theme id (also present as cv->>''theme''). No DB CHECK so new themes need no migration.';
 -- ============================================================================
 -- End Feature 007
 -- ============================================================================

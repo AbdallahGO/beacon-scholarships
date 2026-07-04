@@ -3144,3 +3144,23 @@ grant execute on function public.admin_payments_overview() to authenticated;
 -- ============================================================================
 -- End Feature 006
 -- ============================================================================
+-- ============================================================================
+-- Beacon — feature 007 (CV profile builder) — 2026-07-05
+-- Canonical contract: specs/007-cv-profile-builder/contracts/db-schema.md
+-- Additive & idempotent: two columns on public.profiles. No new tables/policies.
+-- The CV builder stores the whole CV object in `cv` and the theme id in
+-- `cv_theme`, and mirrors full_name/nationality/degree/field_of_interest into
+-- the existing flat columns on save so ticket-checkout + admin keep working.
+-- ============================================================================
+alter table public.profiles
+  add column if not exists cv jsonb;
+alter table public.profiles
+  add column if not exists cv_theme text;
+
+comment on column public.profiles.cv is
+  'Feature 007: full CV builder object (contact/objective/education/experience/honors/skills/activities + theme). Owner-scoped by existing profiles RLS.';
+comment on column public.profiles.cv_theme is
+  'Feature 007: selected CV theme id (also present as cv->>''theme''). No DB CHECK so new themes need no migration.';
+-- ============================================================================
+-- End Feature 007
+-- ============================================================================

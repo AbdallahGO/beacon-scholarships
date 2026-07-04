@@ -85,6 +85,7 @@
 }
 
 .cvb-card {
+  flex: 0 0 auto; /* never let the scrollable flex column shrink cards (would clip their bodies) */
   background: var(--glass-bg);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
   backdrop-filter: blur(20px) saturate(140%);

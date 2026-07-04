@@ -11,6 +11,13 @@ The Profile tab of a signed-in student's account currently shows a plain, formal
 
 The single most important architectural rule (spec §2) is that **data and theme are fully decoupled**: there is one data object the inputs only ever write to, and one preview that only ever reads from it. Switching themes never loses or corrupts data because inputs and the rendered CV are separate layers linked only by shared state.
 
+## Clarifications
+
+### Session 2026-07-05
+
+- Q: The reference spec §4 models skills as plain chips but §7 asks some themes to show skill "bars/percent". How should skills work? → A: This is a **scholarship CV, not a work CV**. Skills are a **single list of soft/personal-skill chips** (leadership, communication, resilience, teamwork…) — there is no separate "technical skills" bucket and no self-rated proficiency level. Themes whose design shows skill "bars/percent/dots" render them **decoratively** (uniform fill / label), never implying a rated percentage.
+- Q: How should PDF certificates appear in the backdrop carousel (FR-021)? → A: **Themed placeholder slide** (document icon + filename) for PDFs in this feature; image certificates render directly as slides. Rasterizing a PDF's first page to an image is **deferred** to avoid adding a client-side PDF-rendering dependency to the no-build-step site.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Build a profile as a live, auto-saving CV (Priority: P1)
@@ -147,7 +154,8 @@ On a small screen the builder stacks into two toggleable tabs — **Edit** and *
 **Core decoupling & data**
 - **FR-001**: The system MUST maintain a single profile data object that the sidebar inputs only ever write to and the preview only ever reads from; inputs and the rendered CV MUST NOT share DOM.
 - **FR-002**: The system MUST update the live CV preview on every input change (each keystroke) as a pure render of the profile data plus the selected theme.
-- **FR-003**: The system MUST support all seven profile sections — Contact, Objective, Education, Experience, Honors & Awards, Skills (technical + soft), Activities — as editable content, using canonical section-to-CV mappings.
+- **FR-003**: The system MUST support all seven profile sections — Contact, Objective, Education, Experience, Honors & Awards, Skills & Strengths, Activities — as editable content, using canonical section-to-CV mappings.
+- **FR-003a**: Because this is a scholarship CV (not a work CV), Skills & Strengths MUST be a single list of short soft/personal-skill chips (no separate technical bucket, no proficiency level). Themes whose visual language shows skill "bars/percent/dots" MUST render them decoratively, never implying a self-rated percentage.
 - **FR-004**: Education, Experience, Honors & Awards, and Activities MUST support adding, removing, and reordering entries; Experience entries MUST support multiple bullet lines.
 - **FR-005**: Empty sections MUST render nothing in the preview (no empty section headers).
 
@@ -173,7 +181,7 @@ On a small screen the builder stacks into two toggleable tabs — **Edit** and *
 - **FR-018**: Uploaded certificates MUST be presented as a full-bleed carousel behind the CV preview, dimmed/scrimmed so CV text stays legible (contrast ≥ 4.5:1), reusing the student's existing certificate uploads.
 - **FR-019**: The backdrop carousel MUST be navigable by edge arrows on desktop and swipe on touch, and MUST show a plain theme background with no controls when there are no certificates.
 - **FR-020**: Certificates MUST be treated as presentation-only and MUST NOT be read by the theme/CV renderer (only by the backdrop carousel), preserving the data/theme decoupling.
-- **FR-021**: Image certificates MUST render directly as slides and PDF certificates MUST render their first page as an image.
+- **FR-021**: Image certificates MUST render directly as backdrop slides. PDF certificates MUST render as a themed placeholder slide (document icon + filename) in this feature; rasterizing a PDF's first page to an image is deferred to a future enhancement (avoids adding a client-side PDF-rendering dependency to the no-build-step site).
 
 **Photo (US6)**
 - **FR-022**: An uploaded photo MUST fill the current theme's photo shape; with no photo, a neutral placeholder silhouette MUST appear in that shape; themes that use no photo MUST omit it cleanly.
@@ -190,7 +198,7 @@ On a small screen the builder stacks into two toggleable tabs — **Edit** and *
 
 ### Key Entities *(include if feature involves data)*
 
-- **Student CV profile**: The single per-student data object holding contact (name, headline, email, phone, location, photo reference), objective, and the repeatable sections education, experience, honors, skills (technical/soft), and activities, plus the chosen theme id. This is the contract between the sidebar and every theme. Stored on the student's existing shared profile record (added alongside the flat fields, not as a separate record).
+- **Student CV profile**: The single per-student data object holding contact (name, headline, email, phone, location, photo reference), objective, and the repeatable sections education, experience, honors, a single Skills & Strengths list (soft/personal-skill chips), and activities, plus the chosen theme id. This is the contract between the sidebar and every theme. Stored on the student's existing shared profile record (added alongside the flat fields, not as a separate record).
 - **Shared profile flat fields**: The pre-existing per-student fields consumed by other flows — name, nationality, highest-degree level, field of interest, photo reference — which the builder keeps populated for ticket booking and admin oversight.
 - **Certificate**: A student-uploaded file (image or PDF) with a name and type, already captured today; read only by the backdrop carousel in this feature.
 - **Theme**: One of 8 named designs, each mapping to a layout archetype and a set of visual tokens (colors, fonts, label/photo/skill styles, decorative elements). Themes store no student data.

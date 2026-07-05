@@ -93,6 +93,9 @@
   let profile = null; // cached profiles row
   let recovering = false;
   let tkTimer = null; // ticket countdown interval
+  let cvTeardown = null; // CV builder teardown (feature 007); declared here so render()
+  // can call teardownCV() safely before the PROFILE block runs (avoids a TDZ ReferenceError
+  // that would abort render() and blank every account tab).
 
   // ---- password recovery (contract F2) --------------------------------------
   if (db) {
@@ -564,7 +567,6 @@
   // This is a thin delegate: it mounts window.BeaconCV (cv-builder.js) into the pane
   // and tears it down when the user leaves the tab. The old formal form, photo card,
   // certificate card and Languages sub-form moved into cv-builder.js.
-  let cvTeardown = null;
   function teardownCV() {
     if (cvTeardown) {
       try {

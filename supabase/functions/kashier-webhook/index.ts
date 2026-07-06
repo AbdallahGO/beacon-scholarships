@@ -11,6 +11,7 @@
 import { createClient } from "npm:@supabase/supabase-js@2.108.1";
 
 const SECRET = Deno.env.get("KASHIER_SECRET")!;
+const API_KEY = Deno.env.get("KASHIER_API_KEY") ?? ""; // only used by mismatch diagnostics
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
@@ -31,6 +32,22 @@ async function hmacSha256Hex(secret: string, msg: string): Promise<string> {
   );
   const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(msg));
   return [...new Uint8Array(sig)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+// Build the string Kashier signs: the signatureKeys' key=value pairs joined by
+// "&". Kashier's docs say to order the keys ALPHABETICALLY; encoding is ambiguous
+// in their docs (their own example shows raw, unencoded values), so the accepted
+// canonical form is sort+raw and the other forms exist only for the mismatch
+// diagnostic that pins down the exact scheme on the first real callback.
+type Enc = "raw" | "enc" | "plus";
+function buildSigString(data: Record<string, unknown>, keys: string[], sort: boolean, enc: Enc): string {
+  const ks = sort ? [...keys].sort() : [...keys];
+  return ks.map((k) => {
+    const v = data[k] == null ? "" : String(data[k]);
+    if (enc === "enc") return `${k}=${encodeURIComponent(v)}`;
+    if (enc === "plus") return `${k}=${encodeURIComponent(v).replace(/%20/g, "+")}`;
+    return `${k}=${v}`;
+  }).join("&");
 }
 
 async function markPaidAndBook(admin: any, pay: any) {
@@ -89,19 +106,34 @@ Deno.serve(async (req: Request) => {
   const data = body?.data || body;
   if (!data) return new Response("ok");
 
-  // verify signature over the documented signatureKeys
+  // Verify the signature. Kashier signs the signatureKeys' key=value pairs,
+  // ordered ALPHABETICALLY, with the payment secret key (HMAC-SHA256), and sends
+  // the result in `signature` / the x-kashier-signature header.
   const keys: string[] = Array.isArray(data.signatureKeys) ? data.signatureKeys : [];
-  const supplied = String(data.signature || req.headers.get("x-kashier-signature") || "");
-  if (keys.length) {
-    const queryString = keys.map((k) => `${k}=${data[k]}`).join("&");
-    const expected = await hmacSha256Hex(SECRET, queryString);
-    if (expected.toLowerCase() !== supplied.toLowerCase()) {
-      console.error("kashier signature mismatch");
-      return new Response("invalid_signature", { status: 400 });
+  const supplied = String(data.signature || req.headers.get("x-kashier-signature") || "").toLowerCase();
+  if (!keys.length || !supplied) {
+    console.error("kashier: missing signatureKeys or signature");
+    return new Response("invalid_signature", { status: 400 });
+  }
+  // Canonical accepted form: sorted keys, raw (unencoded) values, secret key.
+  const expected = (await hmacSha256Hex(SECRET, buildSigString(data, keys, true, "raw"))).toLowerCase();
+  if (expected !== supplied) {
+    // Mismatch: log ONLY which construction (if any) reproduces the supplied
+    // signature so the exact scheme can be pinned and the canonical form above
+    // corrected. We never ACCEPT a non-canonical form — this is diagnostics only.
+    let matched = "NONE";
+    for (const sort of [true, false]) {
+      for (const enc of ["raw", "enc", "plus"] as const) {
+        for (const [kn, kv] of [["SECRET", SECRET], ["API_KEY", API_KEY]] as const) {
+          if (!kv) continue;
+          const h = (await hmacSha256Hex(kv, buildSigString(data, keys, sort, enc))).toLowerCase();
+          if (h === supplied) { matched = `key=${kn} sort=${sort} enc=${enc}`; break; }
+        }
+        if (matched !== "NONE") break;
+      }
+      if (matched !== "NONE") break;
     }
-  } else {
-    // no signatureKeys → cannot verify; reject rather than trust
-    console.error("kashier missing signatureKeys");
+    console.error("kashier signature mismatch", JSON.stringify({ signatureKeys: keys, matchedConstruction: matched }));
     return new Response("invalid_signature", { status: 400 });
   }
 

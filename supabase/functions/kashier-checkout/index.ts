@@ -100,9 +100,12 @@ Deno.serve(async (req: Request) => {
 
     await admin.from("payments").update({ provider_ref: orderId, updated_at: new Date().toISOString() }).eq("id", pay.id);
 
+    // serverWebhook lets Kashier POST the result to our function without any
+    // dashboard webhook config (extra params are not part of the order hash).
+    const serverWebhook = `${SUPABASE_URL}/functions/v1/kashier-webhook`;
     const params = new URLSearchParams({
       merchantId: MID, orderId, amount, currency, hash, mode: MODE,
-      merchantRedirect: base + "#pay-return", display: "en",
+      merchantRedirect: base + "#pay-return", serverWebhook, display: "en",
       type: "external", redirectMethod: "get", allowedMethods: "card",
     });
     const url = "https://checkout.kashier.io/?" + params.toString();

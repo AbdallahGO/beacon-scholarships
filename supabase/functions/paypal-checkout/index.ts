@@ -68,19 +68,34 @@ Deno.serve(async (req: Request) => {
     const { data: prov } = await admin.from("payment_providers").select("*").eq("provider", "paypal").maybeSingle();
     if (!prov || !prov.enabled) return json({ error: "provider_disabled" }, 403);
 
-    // double-pay guard (FR-039)
+    // double-pay guard (FR-039). Pending rows older than STALE_MS are abandoned
+    // checkouts (tab closed, funding declined, …) — auto-cancel them instead of
+    // blocking the scholarship forever with 409 already_in_progress.
+    const STALE_MS = 60 * 60 * 1000;
+    const isFresh = (r: any) =>
+      r.status === "paid" || Date.now() - new Date(r.created_at).getTime() < STALE_MS;
+    async function cancelStale(rows: any[]) {
+      const ids = rows.filter((r) => r.status === "pending" && !isFresh(r)).map((r) => r.id);
+      if (ids.length) {
+        await admin.from("payments")
+          .update({ status: "cancelled", updated_at: new Date().toISOString() })
+          .in("id", ids).eq("status", "pending");
+      }
+    }
     if (kind === "ticket") {
       const { data: booked } = await admin.from("tickets").select("id")
         .eq("user_id", user.id).eq("scholarship_id", scholarshipId).neq("status", "void").limit(1);
       if (booked && booked.length) return json({ error: "already_booked" }, 409);
-      const { data: active } = await admin.from("payments").select("id")
+      const { data: active } = await admin.from("payments").select("id,status,created_at")
         .eq("user_id", user.id).eq("kind", "ticket").eq("item_ref", scholarshipId)
-        .in("status", ["pending", "paid"]).limit(1);
-      if (active && active.length) return json({ error: "already_in_progress" }, 409);
+        .in("status", ["pending", "paid"]);
+      if ((active ?? []).some(isFresh)) return json({ error: "already_in_progress" }, 409);
+      await cancelStale(active ?? []);
     } else {
-      const { data: active } = await admin.from("payments").select("id")
-        .eq("user_id", user.id).eq("kind", "space").eq("status", "pending").limit(1);
-      if (active && active.length) return json({ error: "already_in_progress" }, 409);
+      const { data: active } = await admin.from("payments").select("id,status,created_at")
+        .eq("user_id", user.id).eq("kind", "space").eq("status", "pending");
+      if ((active ?? []).some(isFresh)) return json({ error: "already_in_progress" }, 409);
+      await cancelStale(active ?? []);
     }
 
     // server-authoritative amount: base USD → provider currency

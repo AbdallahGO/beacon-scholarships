@@ -166,9 +166,28 @@ Deno.serve(async (req: Request) => {
         method: "POST",
         headers: { Authorization: "Bearer " + token, "Content-Type": "application/json" },
       });
-      const cap = await capRes.json();
+      const cap = await capRes.json().catch(() => ({}));
       if (capRes.ok && cap.status === "COMPLETED") {
         await markPaidAndBook(admin, pay);
+      } else {
+        // NEVER swallow a failed capture: log the PayPal reason so it shows in
+        // the edge-function logs, then handle by class.
+        const issue = cap?.details?.[0]?.issue || "";
+        console.error("paypal capture failed", JSON.stringify({
+          orderId, payId: pay.id, httpStatus: capRes.status,
+          capStatus: cap?.status ?? null, issue, details: cap?.details ?? cap,
+        }));
+        if (issue === "ORDER_ALREADY_CAPTURED") {
+          // an earlier capture (or retry race) succeeded — recover the booking
+          await markPaidAndBook(admin, pay);
+        } else if (capRes.status >= 500) {
+          // transient PayPal error: non-2xx makes PayPal redeliver the event
+          return new Response("capture_retry", { status: 500 });
+        } else if (pay.status === "pending") {
+          // definitive decline (e.g. INSTRUMENT_DECLINED): free the item so the
+          // user can retry with another funding source
+          await admin.from("payments").update({ status: "failed", updated_at: new Date().toISOString() }).eq("id", pay.id);
+        }
       }
     } else if (type === "PAYMENT.CAPTURE.COMPLETED" || type === "CHECKOUT.ORDER.COMPLETED") {
       await markPaidAndBook(admin, pay);
